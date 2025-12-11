@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "LibreBaskerville";
+  src: url("./assets/fonts/LibreBaskerville-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+/* Tailwind v4 custom font variable */
+@theme {
+  --font-libre: "LibreBaskerville", serif;
+}
