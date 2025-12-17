@@ -29,7 +29,7 @@ export default function Footer() {
               Advancing surgical oncology excellence in Odisha through education, collaboration, and patient care.
             </p>
 
-            <div className="mt-6 flex space-x-3">
+            <div className="mt-6 flex space-x-3 mb-5">
               <a href="#" className="w-8 h-8 rounded-full bg-[#102231] flex items-center justify-center border border-slate-700 hover:bg-[#153148] transition">
                 <FaFacebookF />
               </a>
@@ -43,6 +43,8 @@ export default function Footer() {
                 <FaInstagram />
               </a>
             </div>
+
+            <Link to="/admin" className="w-20 p-1 px-4 border border-gray-400 rounded flex items-center justify-center hover:bg-blue-800 transition-all duration-200">Admin</Link>
           </div>
 
           {/* Quick Links */}
@@ -144,7 +146,7 @@ export default function Footer() {
         <hr className="my-8 border-slate-700" />
 
         <div className="text-center text-slate-400 text-sm">
-          © 2025 Association of Surgical Oncologists of Odisha. All rights reserved.
+          © 2025 ODISHA SOCIETY OF ONCOLOGY. All rights reserved.
         </div>
       </div>
     </footer>

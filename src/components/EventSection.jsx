@@ -14,7 +14,7 @@ const eventsData = [
   },
   {
     id: 2,
-    title: "Annual ASOO Conference 2025",
+    title: "Annual OSOO Conference 2025",
     date: "March 15-17, 2025",
     location: "Hotel Mayfair, Bhubaneswar",
     desc: "Join us for our flagship annual conference featuring keynote speakers and workshops.",

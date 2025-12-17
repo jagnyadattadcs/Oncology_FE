@@ -20,7 +20,7 @@ const events = [
   {
     id: 4,
     label: "IASO Midterm Annual Conference – Puri, Odisha (Feb 8-10, 2025)",
-    href: "https://asoo.in", // Association of Surgical Oncologists of Odisha event :contentReference[oaicite:3]{index=3}
+    href: "https://OSOO.in", // Association of Surgical Oncologists of Odisha event :contentReference[oaicite:3]{index=3}
   },
   {
     id: 5,

@@ -1,20 +1,64 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Navbar from './shared/Navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom'
 import Home from './components/Home'
 import Footer from './shared/Footer'
-
+import AboutUs from './pages/AboutUs'
+import AdminPage from './components/Admin/AdminPage'
+import { useAuth } from './context/AuthContext'
+import { Slide, ToastContainer } from 'react-toastify'
 
 function App() {
+  const { admin, step, loading } = useAuth();
+  const location = useLocation();
+  
+  // Check if current path is an admin path
+  const isAdminPath = location.pathname.startsWith('/admin');
+
+  // Show loading spinner while checking auth state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0b61a8]"></div>
+      </div>
+    );
+  }
 
   return (
     <>
-      <Navbar/>
-      <Routes>
-        <Route path='/' element={<Home />} />
-      </Routes>
-      <Footer/>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Slide}
+      />
+      {/* Show public layout for non-admin paths */}
+      {!isAdminPath ? (
+        <>
+          <Navbar/>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path="/about-us" element={<AboutUs/>} />
+            {/* Add redirect to admin login */}
+            <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <Footer/>
+        </>
+      ) : (
+        /* Show admin layout for admin paths */
+        <Routes>
+          <Route path="/admin/*" element={<AdminPage />} />
+        </Routes>
+      )}
     </>
   )
 }
