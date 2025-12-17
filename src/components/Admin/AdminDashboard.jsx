@@ -55,7 +55,7 @@ const AdminDashboard = () => {
         <div className="w-8"></div>
       </div>
 
-      <div className="flex">
+      <div className="flex w-full overflow-hidden">
         {/* Sidebar */}
         <div
           className={`${
@@ -113,7 +113,7 @@ const AdminDashboard = () => {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 min-h-screen">
+        <div className="flex-1 min-h-screen min-w-0 overflow-x-hidden">
           <div className="p-4 lg:p-8">
             {/* <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-800">
