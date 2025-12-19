@@ -6,24 +6,27 @@ import Home from './components/Home'
 import Footer from './shared/Footer'
 import AboutUs from './pages/AboutUs'
 import AdminPage from './components/Admin/AdminPage'
-import { useAuth } from './context/AuthContext'
 import { Slide, ToastContainer } from 'react-toastify'
+import MemberLogin from './pages/MemberLogin'
+import ChangePassword from './pages/ChangePassword'
+import MemberDashboard from './pages/MemberDashboard'
+import RegistrationSuccess from './pages/RegistrationSuccess'
+import MemberRegister from './pages/MemberRegister'
 
 function App() {
-  const { admin, step, loading } = useAuth();
   const location = useLocation();
   
   // Check if current path is an admin path
   const isAdminPath = location.pathname.startsWith('/admin');
 
   // Show loading spinner while checking auth state
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0b61a8]"></div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0b61a8]"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -47,6 +50,12 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="/about-us" element={<AboutUs/>} />
+            <Route path="/member/register" element={<MemberRegister/>} />
+            <Route path="/member/login" element={<MemberLogin/>} />
+            <Route path="/member/change-password" element={<ChangePassword/>} />
+            <Route path="/member/dashboard" element={<MemberDashboard/>} />
+            <Route path="/registration-success" element={<RegistrationSuccess/>} />
+
             {/* Add redirect to admin login */}
             <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
             <Route path="*" element={<Navigate to="/" />} />

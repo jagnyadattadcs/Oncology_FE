@@ -64,7 +64,7 @@ export default function MarqueeEvents() {
           </div>
         </div>
 
-        <style jsx>{`
+        <style>{`
           @keyframes marquee {
             0% {
               transform: translateX(0);

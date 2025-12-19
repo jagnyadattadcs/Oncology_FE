@@ -585,8 +585,8 @@ const Members = () => {
                             onClick={(e) => e.stopPropagation()}
                             className="px-2 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-xs"
                           >
-                            <option value="unpaid">Mark as Paid</option>
-                            <option value="paid">Mark as Unpaid</option>
+                            <option value="unpaid">Mark as Unpaid</option>
+                            <option value="paid">Mark as paid</option>
                           </select>
                         )}
 

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { FaChevronDown } from 'react-icons/fa'
+import { FaChevronDown, FaBars, FaTimes } from 'react-icons/fa'
+import { useMember } from '../context/MemberContext'
 
 const navItems = [
   {
     name: "Home",
-    link: "/"
+    link: "/",
+    exact: true // Add exact match for home
   },
   {
     name: "About Us",
@@ -16,7 +18,7 @@ const navItems = [
     dropdown: [
       {
         name: "Become a Member",
-        link: "/member/onboarding-member"
+        link: "/member/register"
       },
       {
         name: "Member Login",
@@ -24,15 +26,15 @@ const navItems = [
       },
       {
         name: "Life Member",
-        link: "/member?section=life-members"
+        link: "/member/life-members"
       },
       {
         name: "Associate Members",
-        link: "/member?section=accosiate-members"
+        link: "/member/accosiate-members"
       },
       {
         name: "Benefits of Membership",
-        link: "/member?section=benifits"
+        link: "/member/benifits"
       },
     ]
   },
@@ -64,20 +66,32 @@ const navItems = [
 ]
 
 const Navbar = () => {
+  const { member } = useMember();
   const location = useLocation()
   const [activeDropdown, setActiveDropdown] = useState(null)
-  const [activeNavItem, setActiveNavItem] = useState("/")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const mobileMenuRef = useRef(null)
 
-  // Set active nav item based on current location
+  // Handle scroll effect
   useEffect(() => {
-    const currentPath = location.pathname
-    const activeItem = navItems.find(item => 
-      item.link === currentPath || 
-      (item.dropdown && item.dropdown.some(subItem => subItem.link.startsWith(currentPath)))
-    )
-    setActiveNavItem(activeItem?.link || "/")
-  }, [location])
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleMouseEnter = (itemName) => {
     if (navItems.find(item => item.name === itemName)?.dropdown) {
@@ -89,17 +103,24 @@ const Navbar = () => {
     setActiveDropdown(null)
   }
 
+  // Improved isActive function
   const isActive = (item) => {
-    if (item.link) {
-      return activeNavItem === item.link || location.pathname === item.link
+    if (item.exact) {
+      return location.pathname === item.link
     }
+    
+    if (item.link) {
+      return location.pathname.startsWith(item.link)
+    }
+    
     // For dropdown items, check if any sub-item is active
     if (item.dropdown) {
-      return item.dropdown.some(subItem => 
-        location.pathname.startsWith(subItem.link.split('?')[0]) ||
-        location.pathname === subItem.link
-      )
+      return item.dropdown.some(subItem => {
+        const basePath = subItem.link.split('?')[0]
+        return location.pathname === basePath || location.pathname.startsWith(basePath)
+      })
     }
+    
     return false
   }
 
@@ -107,188 +128,238 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  const handleNavItemClick = (item) => {
-    if (item.link) {
-      setActiveNavItem(item.link)
-      setIsMobileMenuOpen(false)
-    }
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
   }
 
   return (
-    <div className='w-full min-h-24 bg-white shadow-md p-1 px-4 md:px-8'>
-      <div className='flex justify-between items-center h-full'>
-        {/* Logo and Title */}
-        <div className='flex items-center gap-2'>
-          <img 
-            src="/osoo_logo.jpg" 
-            alt="osoo logo" 
-            className='w-16 md:w-20 rounded-full'
-          />
-          <div>
-            <h1 className='hidden lg:block font-libre font-bold text-lg md:text-2xl text-blue-900'>ODISHA SOCIETY OF ONCOLOGY</h1>
-            <h1 className='lg:hidden block font-libre font-bold text-lg md:text-2xl text-blue-900'>OSOO</h1>
-            {/* <p className='text-gray-600'>Registered under the Societies Registration Act (No XXI of 1860)</p> */}
-          </div>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className='md:hidden text-gray-700 text-2xl'
-          onClick={toggleMobileMenu}
-        >
-          ☰
-        </button>
-        
-        {/* Desktop Navigation */}
-        <div className='hidden md:flex items-center text-lg gap-6 lg:gap-8 relative'>
-          {navItems.map((item, idx) => (
-            <div 
-              key={idx} 
-              className='relative'
-              onMouseEnter={() => handleMouseEnter(item.name)}
-              onMouseLeave={handleMouseLeave}
-            >
-              {item.link ? (
-                <Link 
-                  to={item.link} 
-                  onClick={() => handleNavItemClick(item)}
-                  className={`flex items-center gap-1 font-medium transition-colors duration-200 ${
-                    isActive(item) 
-                      ? 'text-blue-600 border-b-2 border-blue-600' 
-                      : 'text-gray-700 hover:text-blue-600'
-                  }`}
-                >
-                  {item.name}
-                  {item.dropdown && <FaChevronDown className="text-xs mt-1" />}
-                </Link>
-              ) : (
-                <span className={`flex items-center gap-1 cursor-pointer font-medium ${
-                  isActive(item)
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
-                }`}>
-                  {item.name}
-                  {item.dropdown && <FaChevronDown className="text-xs mt-1" />}
-                </span>
-              )}
-              
-              {item.dropdown && activeDropdown === item.name && (
-                <div 
-                  className='absolute top-full left-1/2 transform -translate-x-1/2 w-64 bg-white shadow-lg py-2 z-50 rounded-sm border border-gray-100'
-                  onMouseEnter={() => handleMouseEnter(item.name)}
-                >
-                  {item.dropdown.map((dropdownItem, dropdownIdx) => (
-                    <Link
-                      key={dropdownIdx}
-                      to={dropdownItem.link}
-                      onClick={() => {
-                        handleNavItemClick(item)
-                        setIsMobileMenuOpen(false)
-                      }}
-                      className={`block px-4 py-2 transition-colors duration-200 ${
-                        location.pathname === dropdownItem.link.split('?')[0]
-                          ? 'bg-blue-600 text-white'
-                          : 'text-gray-700 hover:bg-blue-600 hover:text-white'
-                      }`}
-                    >
-                      {dropdownItem.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
+    <div className={`w-full bg-white shadow-md sticky top-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'py-1' : 'py-2'
+    }`}>
+      <div className='mx-auto px-4 md:px-6 lg:px-8'>
+        <div className='flex justify-between items-center'>
+          {/* Logo and Title */}
+          <Link to="/" className='flex items-center gap-3 md:gap-4'>
+            <img 
+              src="/osoo_logo.jpg" 
+              alt="osoo logo" 
+              className='w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-blue-100'
+            />
+            <div className='hidden sm:block'>
+              <h1 className='font-bold text-lg md:text-xl lg:text-2xl text-[#326EAC] leading-tight'>
+                ODISHA SOCIETY OF ONCOLOGY
+              </h1>
+              <p className='text-gray-600 text-xs md:text-sm mt-0.5'>
+                Registered under the Societies Registration Act (No XXI of 1860)
+              </p>
             </div>
-          ))}
-          
-          <div className='flex items-center gap-3 lg:gap-4 ml-4'>
+            <div className='sm:hidden'>
+              <h1 className='font-bold text-lg text-[#326EAC]'>OSOO</h1>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className='hidden lg:flex items-center text-lg gap-6 xl:gap-8 relative'>
+            {navItems.map((item, idx) => (
+              <div 
+                key={idx} 
+                className='relative group'
+                onMouseEnter={() => handleMouseEnter(item.name)}
+                onMouseLeave={handleMouseLeave}
+              >
+                {item.link ? (
+                  <Link 
+                    to={item.link} 
+                    className={`flex items-center gap-1 font-medium transition-all duration-200 relative pb-1 ${
+                      isActive(item) 
+                        ? 'text-[#326EAC] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#326EAC]' 
+                        : 'text-gray-700 hover:text-[#326EAC] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-0.5 hover:after:bg-[#326EAC]'
+                    }`}
+                  >
+                    {item.name}
+                    {item.dropdown && <FaChevronDown className="text-xs mt-0.5 ml-1" />}
+                  </Link>
+                ) : (
+                  <div className={`flex items-center gap-1 cursor-pointer font-medium transition-all duration-200 relative pb-1 ${
+                    isActive(item)
+                      ? 'text-[#326EAC] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#326EAC]'
+                      : 'text-gray-700 hover:text-[#326EAC] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-0.5 hover:after:bg-[#326EAC]'
+                  }`}>
+                    {item.name}
+                    {item.dropdown && <FaChevronDown className="text-xs mt-0.5 ml-1" />}
+                  </div>
+                )}
+                
+                {/* Desktop Dropdown */}
+                {item.dropdown && (
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 w-56 bg-white shadow-xl py-2 z-50 rounded-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2 transition-all duration-200 ${
+                    activeDropdown === item.name ? 'block' : 'hidden'
+                  }`}>
+                    {item.dropdown.map((dropdownItem, dropdownIdx) => (
+                      <Link
+                        key={dropdownIdx}
+                        to={dropdownItem.link}
+                        onClick={closeMobileMenu}
+                        className={`block px-4 py-3 transition-all duration-200 mx-2 rounded ${
+                          location.pathname === dropdownItem.link.split('?')[0] ||
+                          location.pathname.startsWith(dropdownItem.link.split('?')[0])
+                            ? 'bg-blue-50 text-[#326EAC] font-semibold'
+                            : 'text-gray-700 hover:bg-blue-50 hover:text-[#326EAC]'
+                        }`}
+                      >
+                        {dropdownItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Action Buttons & Mobile Menu */}
+          <div className='flex items-center gap-3 lg:gap-4'>
+            {/* Contact Button - Hidden on mobile */}
             <Link 
               to="/contact" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-4 lg:px-6 py-2 bg-[#083768] text-white rounded-lg hover:opacity-90 text-sm lg:text-base"
+              className="hidden md:block px-5 py-2.5 bg-[#083768] text-white rounded-lg hover:bg-[#0a4a8a] transition-all duration-200 font-medium text-sm"
             >
               Contact
             </Link>
-            <Link 
-              to="/member/login" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-4 lg:px-6 py-2 bg-[#ff1605] text-white rounded-lg hover:opacity-90 text-sm lg:text-base"
+            
+            {/* Member Login/Profile */}
+            {member ? (
+              <Link 
+                to="/member/dashboard" 
+                className="flex items-center gap-2 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-full transition-all duration-200"
+              >
+                <div className='w-9 h-9 rounded-full bg-[#326EAC] flex items-center justify-center text-white font-bold text-lg'>
+                  {member.name?.charAt(0).toUpperCase()}
+                </div>
+                <span className='hidden md:block text-[#326EAC] font-medium'>
+                  Dashboard
+                </span>
+              </Link>
+            ) : (
+              <Link 
+                to="/member/login" 
+                className="px-5 py-2.5 bg-[#ff1605] text-white rounded-lg hover:bg-[#ff3010] transition-all duration-200 font-medium text-sm hidden md:block"
+              >
+                Member Login
+              </Link>
+            )}
+            
+            {/* Mobile Menu Button */}
+            <button 
+              className='lg:hidden text-gray-700 text-2xl p-2 hover:bg-gray-100 rounded-lg transition-all duration-200'
+              onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
             >
-              Member Login
-            </Link>
+              {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Navigation Menu */}
-      {isMobileMenuOpen && (
-        <div className='md:hidden mt-4 pb-4 border-t pt-4'>
-          {navItems.map((item, idx) => (
-            <div key={idx} className='mb-2'>
-              {item.link ? (
-                <Link 
-                  to={item.link}
-                  onClick={() => handleNavItemClick(item)}
-                  className={`block py-2 px-4 font-medium rounded ${
-                    isActive(item)
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <div className='flex items-center justify-between'>
+      <div 
+        ref={mobileMenuRef}
+        className={`lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200 transition-all duration-300 overflow-hidden ${
+          isMobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className='container mx-auto px-4 py-4'>
+          {/* Mobile Navigation Items */}
+          <div className='space-y-1'>
+            {navItems.map((item, idx) => (
+              <div key={idx}>
+                {item.link ? (
+                  <Link 
+                    to={item.link}
+                    onClick={closeMobileMenu}
+                    className={`flex items-center justify-between py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
+                      isActive(item)
+                        ? 'bg-blue-50 text-[#326EAC]'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {item.name}
+                    {item.dropdown && <FaChevronDown className="text-xs" />}
+                  </Link>
+                ) : (
+                  <div className='flex items-center justify-between py-3 px-4 rounded-lg font-medium text-gray-700'>
                     {item.name}
                     {item.dropdown && <FaChevronDown className="text-xs" />}
                   </div>
-                </Link>
-              ) : (
-                <div className='py-2 px-4 font-medium text-gray-700'>
-                  <div className='flex items-center justify-between'>
-                    {item.name}
-                    {item.dropdown && <FaChevronDown className="text-xs" />}
+                )}
+                
+                {/* Mobile Dropdown Items */}
+                {item.dropdown && (
+                  <div className='ml-4 pl-4 border-l-2 border-gray-200 space-y-1'>
+                    {item.dropdown.map((dropdownItem, dropdownIdx) => (
+                      <Link
+                        key={dropdownIdx}
+                        to={dropdownItem.link}
+                        onClick={closeMobileMenu}
+                        className={`block py-2.5 px-4 rounded-lg text-sm transition-all duration-200 ${
+                          location.pathname === dropdownItem.link.split('?')[0] ||
+                          location.pathname.startsWith(dropdownItem.link.split('?')[0])
+                            ? 'bg-blue-50 text-[#326EAC] font-medium'
+                            : 'text-gray-600 hover:bg-gray-50'
+                        }`}
+                      >
+                        {dropdownItem.name}
+                      </Link>
+                    ))}
                   </div>
-                </div>
-              )}
-              
-              {item.dropdown && (
-                <div className='ml-6 mt-1 bg-gray-50 rounded'>
-                  {item.dropdown.map((dropdownItem, dropdownIdx) => (
-                    <Link
-                      key={dropdownIdx}
-                      to={dropdownItem.link}
-                      onClick={() => {
-                        handleNavItemClick(item)
-                        setIsMobileMenuOpen(false)
-                      }}
-                      className={`block py-2 px-4 text-sm rounded ${
-                        location.pathname === dropdownItem.link.split('?')[0]
-                          ? 'bg-blue-100 text-blue-600'
-                          : 'text-gray-600 hover:bg-gray-100'
-                      }`}
-                    >
-                      {dropdownItem.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-          
-          <div className='mt-4 flex flex-col gap-2'>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Action Buttons */}
+          <div className='mt-6 pt-4 border-t border-gray-200 space-y-3'>
             <Link 
               to="/contact" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="py-2 px-4 bg-[#083768] text-white rounded-lg hover:opacity-90 text-center"
+              onClick={closeMobileMenu}
+              className="block w-full py-3 px-4 bg-[#083768] text-white rounded-lg hover:bg-[#0a4a8a] text-center font-medium transition-all duration-200"
             >
-              Contact
+              Contact Us
             </Link>
+            
+            {member ? (
+              <Link 
+                to="/member/dashboard" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-center gap-3 py-3 px-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-all duration-200"
+              >
+                <div className='w-10 h-10 rounded-full bg-[#326EAC] flex items-center justify-center text-white font-bold text-lg'>
+                  {member.name?.charAt(0).toUpperCase()}
+                </div>
+                <div className='text-left'>
+                  <p className='text-[#326EAC] font-medium'>Welcome back</p>
+                  <p className='text-sm text-gray-600'>{member.name}</p>
+                </div>
+              </Link>
+            ) : (
+              <Link 
+                to="/login" 
+                onClick={closeMobileMenu}
+                className="block w-full py-3 px-4 bg-[#ff1605] text-white rounded-lg hover:bg-[#ff3010] text-center font-medium transition-all duration-200"
+              >
+                Member Login
+              </Link>
+            )}
+            
             <Link 
-              to="/member/login" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="py-2 px-4 bg-[#ff1605] text-white rounded-lg hover:opacity-90 text-center"
+              to="/register" 
+              onClick={closeMobileMenu}
+              className="block w-full py-3 px-4 border-2 border-[#326EAC] text-[#326EAC] rounded-lg hover:bg-[#326EAC] hover:text-white text-center font-medium transition-all duration-200"
             >
-              Member Login
+              Become a Member
             </Link>
           </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }

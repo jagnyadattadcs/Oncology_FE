@@ -1,3 +1,13 @@
 html{
     scroll-behavior: smooth;
 }
+
+/* Smooth transitions for navbar */
+.navbar-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Prevent text selection on navbar */
+.navbar-no-select {
+  user-select: none;
+}
