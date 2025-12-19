@@ -48,6 +48,7 @@ const Members = () => {
     approved: 0,
     rejected: 0
   });
+  const [uniqueId, setUniqueId] = useState('');
 
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -119,6 +120,7 @@ const Members = () => {
     e?.stopPropagation();
     setSelectedMemberId(memberId);
     setAdminNotes('');
+    setUniqueId(''); // Clear previous value
     setShowApproveModal(true);
   };
 
@@ -137,11 +139,19 @@ const Members = () => {
       return;
     }
 
+    if (!uniqueId.trim()) {
+      toast.error('Please provide a unique ID for the member');
+      return;
+    }
+
     try {
       const token = localStorage.getItem('adminToken');
       const response = await axios.put(
         `${BASE_URL}/member/admin/approve/${selectedMemberId}`,
-        { adminNotes },
+        { 
+          adminNotes,
+          uniqueId: uniqueId.trim() // Send uniqueId to backend
+        },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -153,6 +163,7 @@ const Members = () => {
       if (response.data.success) {
         toast.success('Member approved successfully! Login credentials sent to member.');
         setShowApproveModal(false);
+        setUniqueId(''); // Clear after successful approval
         fetchMembers(); // Refresh list
         setShowDetails(false);
       }
@@ -842,6 +853,24 @@ const Members = () => {
                 Are you sure you want to approve this member? They will receive their login credentials via email.
               </p>
               
+              {/* Add Unique ID Input Field */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Unique Member ID <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={uniqueId}
+                  onChange={(e) => setUniqueId(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                  placeholder="Enter unique ID (e.g., OSOO001)"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  This ID will be used for member login and identification
+                </p>
+              </div>
+              
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Admin Notes <span className="text-red-500">*</span>
@@ -859,7 +888,10 @@ const Members = () => {
               
               <div className="flex gap-3">
                 <button
-                  onClick={() => setShowApproveModal(false)}
+                  onClick={() => {
+                    setShowApproveModal(false);
+                    setUniqueId(''); // Clear when canceling
+                  }}
                   className="flex-1 py-3 px-4 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition"
                 >
                   Cancel

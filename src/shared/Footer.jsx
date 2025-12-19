@@ -6,7 +6,7 @@ import { FiPhone, FiMail } from "react-icons/fi";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0e1720] text-slate-300">
+    <footer className="bg-[#253544] text-slate-300">
       <div className="w-full mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Branding */}
@@ -44,7 +44,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <Link to="/admin" className="w-20 p-1 px-4 border border-gray-400 rounded flex items-center justify-center hover:bg-blue-800 transition-all duration-200">Admin</Link>
+            <Link to="/admin" className="w-20 p-1 px-4 border border-gray-400 rounded flex items-center justify-center hover:bg-[#326EAC] transition-all duration-200">Admin</Link>
           </div>
 
           {/* Quick Links */}

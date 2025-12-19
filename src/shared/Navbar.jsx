@@ -125,7 +125,8 @@ const Navbar = () => {
             className='w-16 md:w-20 rounded-full'
           />
           <div>
-            <h1 className='hidden sm:block font-libre font-bold text-lg md:text-2xl text-blue-900'>ODISHA SOCIETY OF ONCOLOGY</h1>
+            <h1 className='hidden lg:block font-libre font-bold text-lg md:text-2xl text-blue-900'>ODISHA SOCIETY OF ONCOLOGY</h1>
+            <h1 className='lg:hidden block font-libre font-bold text-lg md:text-2xl text-blue-900'>OSOO</h1>
             {/* <p className='text-gray-600'>Registered under the Societies Registration Act (No XXI of 1860)</p> */}
           </div>
         </div>
