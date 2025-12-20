@@ -52,16 +52,7 @@ const MemberSection = () => {
   return (
     <div 
       className="min-h-screen relative overflow-hidden"
-      // style={{
-      //   backgroundImage: `url("https://res.cloudinary.com/dxvovx7s2/image/upload/v1765972142/blob-scene-haikei_qidc0k.svg")`,
-      //   backgroundRepeat: "no-repeat",
-      //   backgroundSize: "cover",
-      //   backgroundPosition: "center"
-      // }}
-    >
-      {/* Background with the same pattern as AboutSection */}
-      {/* <div className="absolute inset-0 bg-linear-to-r from-blue-50/80 to-pink-50/80 z-0"></div> */}
-      
+    >      
       {/* White content container similar to AboutSection */}
       <div className="relative z-10 w-full max-w-8xl mx-auto mb-10">
         {/* Header - positioned similar to AboutSection */}

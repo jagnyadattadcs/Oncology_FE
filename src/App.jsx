@@ -12,6 +12,8 @@ import ChangePassword from './pages/ChangePassword'
 import MemberDashboard from './pages/MemberDashboard'
 import RegistrationSuccess from './pages/RegistrationSuccess'
 import MemberRegister from './pages/MemberRegister'
+import ContactForm from './pages/ContactForm'
+import BenefitsOfMembership from './pages/BenefitsOfMembership'
 
 function App() {
   const location = useLocation();
@@ -50,6 +52,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="/about-us" element={<AboutUs/>} />
+            <Route path="/contact" element={<ContactForm/>} />
+            <Route path="/member/benifits" element={<BenefitsOfMembership/>} />
             <Route path="/member/register" element={<MemberRegister/>} />
             <Route path="/member/login" element={<MemberLogin/>} />
             <Route path="/member/change-password" element={<ChangePassword/>} />

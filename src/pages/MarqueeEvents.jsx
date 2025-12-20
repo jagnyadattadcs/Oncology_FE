@@ -41,6 +41,7 @@ export default function MarqueeEvents() {
               <Link
                 key={`a-${ev.id}`}
                 to={ev.href}
+                target="_blank"
                 className="inline-block px-3 py-2 rounded-md text-sm md:text-base lg:text-lg font-medium hover:underline focus:outline-none"
                 tabIndex={0}
               >

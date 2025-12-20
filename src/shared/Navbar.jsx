@@ -24,14 +24,14 @@ const navItems = [
         name: "Member Login",
         link: "/member/login"
       },
-      {
-        name: "Life Member",
-        link: "/member/life-members"
-      },
-      {
-        name: "Associate Members",
-        link: "/member/accosiate-members"
-      },
+      // {
+      //   name: "Life Member",
+      //   link: "/member/life-members"
+      // },
+      // {
+      //   name: "Associate Members",
+      //   link: "/member/accosiate-members"
+      // },
       {
         name: "Benefits of Membership",
         link: "/member/benifits"
@@ -264,7 +264,7 @@ const Navbar = () => {
       <div 
         ref={mobileMenuRef}
         className={`lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200 transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+          isMobileMenuOpen ? 'max-h-[500px] overflow-y-auto opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         <div className='container mx-auto px-4 py-4'>
@@ -349,14 +349,18 @@ const Navbar = () => {
                 Member Login
               </Link>
             )}
-            
-            <Link 
-              to="/register" 
-              onClick={closeMobileMenu}
-              className="block w-full py-3 px-4 border-2 border-[#326EAC] text-[#326EAC] rounded-lg hover:bg-[#326EAC] hover:text-white text-center font-medium transition-all duration-200"
-            >
-              Become a Member
-            </Link>
+
+            {
+              !member && (
+                <Link 
+                  to="/register" 
+                  onClick={closeMobileMenu}
+                  className="block w-full py-3 px-4 border-2 border-[#326EAC] text-[#326EAC] rounded-lg hover:bg-[#326EAC] hover:text-white text-center font-medium transition-all duration-200"
+                >
+                  Become a Member
+                </Link>
+              )
+            }            
           </div>
         </div>
       </div>
