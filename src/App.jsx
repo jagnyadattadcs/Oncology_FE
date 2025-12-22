@@ -14,6 +14,10 @@ import RegistrationSuccess from './pages/RegistrationSuccess'
 import MemberRegister from './pages/MemberRegister'
 import ContactForm from './pages/ContactForm'
 import BenefitsOfMembership from './pages/BenefitsOfMembership'
+import UpcomingEvents from './pages/UpcomingEvents'
+import PastEvents from './pages/PastEvents'
+import EventVideos from './pages/EventVideos'
+import ImageGallery from './pages/ImageGallery'
 
 function App() {
   const location = useLocation();
@@ -59,6 +63,10 @@ function App() {
             <Route path="/member/change-password" element={<ChangePassword/>} />
             <Route path="/member/dashboard" element={<MemberDashboard/>} />
             <Route path="/registration-success" element={<RegistrationSuccess/>} />
+            <Route path="/events/upcoming-events" element={<UpcomingEvents/>} />
+            <Route path="/events/past-events" element={<PastEvents/>} />
+            <Route path="/events/event-videos" element={<EventVideos/>} />
+            <Route path="/events/gallery" element={<ImageGallery/>} />
 
             {/* Add redirect to admin login */}
             <Route path="/admin" element={<Navigate to="/admin/login" replace />} />

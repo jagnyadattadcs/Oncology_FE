@@ -43,19 +43,19 @@ const navItems = [
     dropdown: [
       {
         name: "Forthcoming Events",
-        link: "/events?eventType=forth-coming-events"
+        link: "/events/upcoming-events"
       },
       {
         name: "Past Events",
-        link: "/events?eventType=past-events"
+        link: "/events/past-events"
       },
       {
         name: "Events Video",
-        link: "/events?eventType=event-videos"
+        link: "/events/event-videos"
       },
       {
         name: "Image Gallery",
-        link: "/events?eventType=gallery"
+        link: "/events/gallery"
       }
     ]
   },

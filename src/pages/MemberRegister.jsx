@@ -44,18 +44,31 @@ const MemberRegister = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        setErrors(prev => ({ ...prev, documentImage: 'File size must be less than 5MB' }));
-        return;
-      }
-      if (!file.type.startsWith('image/')) {
-        setErrors(prev => ({ ...prev, documentImage: 'Please upload an image file' }));
-        return;
-      }
-      setDocumentImage(file);
-      setErrors(prev => ({ ...prev, documentImage: '' }));
+    if (!file) return;
+
+    // Size validation (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setErrors(prev => ({
+        ...prev,
+        documentImage: 'File size must be less than 5MB'
+      }));
+      return;
     }
+
+    // Type validation (IMAGE OR PDF)
+    const isImage = file.type.startsWith('image/');
+    const isPdf = file.type === 'application/pdf';
+
+    if (!isImage && !isPdf) {
+      setErrors(prev => ({
+        ...prev,
+        documentImage: 'Please upload JPG, PNG, or PDF only'
+      }));
+      return;
+    }
+
+    setDocumentImage(file);
+    setErrors(prev => ({ ...prev, documentImage: '' }));
   };
 
   const validateForm = () => {
@@ -288,7 +301,7 @@ const MemberRegister = () => {
                       type="file"
                       id="documentImage"
                       onChange={handleFileChange}
-                      accept="image/*"
+                      accept="image/*,application/pdf"
                       className="hidden"
                     />
                     <label htmlFor="documentImage" className="cursor-pointer">
@@ -314,12 +327,24 @@ const MemberRegister = () => {
                   
                   {documentImage && (
                     <div className="mt-4">
-                      <p className="text-sm text-gray-600 mb-2">Preview:</p>
-                      <img
-                        src={URL.createObjectURL(documentImage)}
-                        alt="Document preview"
-                        className="max-w-xs max-h-48 object-contain border border-gray-300 rounded-lg"
-                      />
+                      <p className="text-sm text-gray-600 mb-2">Preview:</p>    
+                      {/* IMAGE PREVIEW */}
+                      {documentImage.type.startsWith('image/') && (
+                        <img
+                          src={URL.createObjectURL(documentImage)}
+                          alt="Document preview"
+                          className="max-w-xs max-h-48 object-contain border border-gray-300 rounded-lg"
+                        />
+                      )}
+
+                      {/* PDF PREVIEW */}
+                      {documentImage.type === 'application/pdf' && (
+                        <iframe
+                          src={URL.createObjectURL(documentImage)}
+                          title="PDF Preview"
+                          className="w-full max-w-md h-64 border border-gray-300 rounded-lg"
+                        />
+                      )}
                     </div>
                   )}
                 </div>

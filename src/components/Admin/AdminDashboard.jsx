@@ -11,7 +11,8 @@ import {
   FaSignOutAlt,
   FaBars,
   FaTimes,
-  FaImage
+  FaImage,
+  FaEnvelope
 } from 'react-icons/fa';
 import Dashboard from './Dashboard';
 import HomeCarousel from './HomeCarousel';
@@ -20,6 +21,7 @@ import Members from './Members';
 import NewsEvents from './NewsEvents';
 import Conferences from './Conferences';
 import Settings from './Settings';
+import Contact from './Contact';
 
 const AdminDashboard = () => {
   const { admin, logout } = useAuth();
@@ -32,7 +34,8 @@ const AdminDashboard = () => {
     { id: 'gallery', label: 'Gallery', icon: <FaImage />, component: <Gallery /> },
     { id: 'members', label: 'Members', icon: <FaUser />, component: <Members /> },
     { id: 'news', label: 'News & Events', icon: <FaNewspaper />, component: <NewsEvents /> },
-    { id: 'conferences', label: 'Conferences', icon: <FaCalendarAlt />, component: <Conferences /> },
+    // { id: 'conferences', label: 'Conferences', icon: <FaCalendarAlt />, component: <Conferences /> },
+    { id: 'contact', label: 'Contact Messages', icon: <FaEnvelope />, component: <Contact /> },
     { id: 'settings', label: 'Settings', icon: <FaCog />, component: <Settings /> },
   ];
 
