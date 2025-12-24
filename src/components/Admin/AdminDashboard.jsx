@@ -12,16 +12,20 @@ import {
   FaBars,
   FaTimes,
   FaImage,
-  FaEnvelope
+  FaEnvelope,
+  FaUsers,
+  FaPlayCircle
 } from 'react-icons/fa';
 import Dashboard from './Dashboard';
 import HomeCarousel from './HomeCarousel';
 import Gallery from './Gallery';
 import Members from './Members';
 import NewsEvents from './NewsEvents';
-import Conferences from './Conferences';
+// import Conferences from './Conferences';
 import Settings from './Settings';
 import Contact from './Contact';
+import CouncilMembers from './CouncilMembers';
+import EventVideosPage from './EventVideosPage';
 
 const AdminDashboard = () => {
   const { admin, logout } = useAuth();
@@ -32,7 +36,9 @@ const AdminDashboard = () => {
     { id: 'dashboard', label: 'Dashboard', icon: <FaHome />, component: <Dashboard /> },
     { id: 'homecarousel', label: 'Home Carousel', icon: <FaImages />, component: <HomeCarousel /> },
     { id: 'gallery', label: 'Gallery', icon: <FaImage />, component: <Gallery /> },
+    { id: 'videos', label: 'Event Videos', icon: <FaPlayCircle />, component: <EventVideosPage /> },
     { id: 'members', label: 'Members', icon: <FaUser />, component: <Members /> },
+    { id: 'council', label: 'Council Members', icon: <FaUsers />, component: <CouncilMembers /> }, 
     { id: 'news', label: 'News & Events', icon: <FaNewspaper />, component: <NewsEvents /> },
     // { id: 'conferences', label: 'Conferences', icon: <FaCalendarAlt />, component: <Conferences /> },
     { id: 'contact', label: 'Contact Messages', icon: <FaEnvelope />, component: <Contact /> },

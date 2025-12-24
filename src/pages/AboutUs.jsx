@@ -16,123 +16,7 @@ import { GiStethoscope } from "react-icons/gi";
 import { RiGroupLine } from "react-icons/ri";
 import { MdVerified, MdSchool, MdMedicalServices, MdWork } from "react-icons/md";
 import { Link } from "react-router-dom";
-
-const councilMembers = [
-  { 
-    id: 1, 
-    name: "Dr. Rajesh Kumar Panda", 
-    title: "President", 
-    sub: "MS, MCh (Surg. Onco.)", 
-    img: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=60",
-    email: "rajesh.panda@example.com",
-    phone: "+91 9876543210",
-    hospital: "Apollo Hospitals, Bhubaneswar",
-    experience: "15+ Years",
-    specialization: "Surgical Oncology",
-    qualifications: "MS, MCh (Surgical Oncology), FRCS",
-    bio: "Renowned surgical oncologist with extensive experience in cancer surgeries. Pioneered several minimally invasive surgical techniques in Odisha.",
-    achievements: [
-      "Published 50+ research papers",
-      "Awarded Best Oncologist 2020",
-      "Member of National Cancer Board"
-    ]
-  },
-  { 
-    id: 2, 
-    name: "Dr. Sanghamitra Mohanty", 
-    title: "Vice President", 
-    sub: "MS, MCh (Surg. Onco.)", 
-    img: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=60",
-    email: "sanghamitra.m@example.com",
-    phone: "+91 9876543211",
-    hospital: "KIMS Hospital, Bhubaneswar",
-    experience: "12+ Years",
-    specialization: "Breast Oncology",
-    qualifications: "MS, MCh (Surgical Oncology), FICS",
-    bio: "Specialized in breast cancer surgeries and reconstruction. Active researcher in oncoplastic surgery techniques.",
-    achievements: [
-      "Breast Cancer Research Award 2021",
-      "Women in Medicine Excellence Award",
-      "Published 30+ papers"
-    ]
-  },
-  { 
-    id: 3, 
-    name: "Dr. Pradeep Kumar Sahoo", 
-    title: "Secretary", 
-    sub: "MS, MCh (Surg. Onco.)", 
-    img: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=60",
-    email: "pradeep.sahoo@example.com",
-    phone: "+91 9876543212",
-    hospital: "AIIMS, Bhubaneswar",
-    experience: "18+ Years",
-    specialization: "GI Oncology",
-    qualifications: "MS, MCh, PhD (Oncology)",
-    bio: "Expert in gastrointestinal cancer surgeries. Published extensively on pancreatic and colorectal cancers.",
-    achievements: [
-      "National Research Excellence Award",
-      "Best Paper Award - ASI Conference",
-      "Reviewer for International Journals"
-    ]
-  },
-  { 
-    id: 4, 
-    name: "Dr. Nandita Dash", 
-    title: "Treasurer", 
-    sub: "MS, MCh (Surg. Onco.)", 
-    img: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=60",
-    email: "nandita.dash@example.com",
-    phone: "+91 9876543213",
-    hospital: "SUM Hospital, Bhubaneswar",
-    experience: "10+ Years",
-    specialization: "Head & Neck Oncology",
-    qualifications: "MS, MCh (Surgical Oncology), Fellowship",
-    bio: "Specialized in head and neck cancer surgeries with focus on functional preservation and reconstruction.",
-    achievements: [
-      "Young Oncologist Award 2019",
-      "International Fellowship Recipient",
-      "Conference Speaker - National Level"
-    ]
-  },
-  { 
-    id: 5, 
-    name: "Dr. Ashok Kumar Mishra", 
-    title: "Executive Member", 
-    sub: "MS, MCh (Surg. Onco.)", 
-    img: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=60",
-    email: "ashok.mishra@example.com",
-    phone: "+91 9876543214",
-    hospital: "SCB Medical College, Cuttack",
-    experience: "20+ Years",
-    specialization: "Thoracic Oncology",
-    qualifications: "MS, MCh, DNB (Surgical Oncology)",
-    bio: "Senior surgical oncologist specializing in lung and esophageal cancers. Trained many young surgeons in the field.",
-    achievements: [
-      "Lifetime Achievement Award 2022",
-      "Editor - Indian Journal of Oncology",
-      "National Faculty Member"
-    ]
-  },
-  { 
-    id: 6, 
-    name: "Dr. Swati Behera", 
-    title: "Executive Member", 
-    sub: "MS, MCh (Surg. Onco.)", 
-    img: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=800&q=60",
-    email: "swati.behera@example.com",
-    phone: "+91 9876543215",
-    hospital: "Capital Hospital, Bhubaneswar",
-    experience: "8+ Years",
-    specialization: "Gynecological Oncology",
-    qualifications: "MS, MCh (Surgical Oncology), FNB",
-    bio: "Focused on gynecological cancers with expertise in radical surgeries and fertility preservation techniques.",
-    achievements: [
-      "Women's Health Excellence Award",
-      "Research Grant Recipient - ICMR",
-      "Best Young Surgeon Award"
-    ]
-  },
-];
+import { useData } from "../context/DataContext";
 
 const timeline = [
   { 
@@ -173,7 +57,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-2xl font-bold text-[#326EAC]">{member.name}</h3>
-              <p className="text-gray-600">{member.title} • OSOO Council Member</p>
+              <p className="text-gray-600">{member.role} • OSOO Council Member</p>
             </div>
             <button
               onClick={onClose}
@@ -193,7 +77,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
                 {/* Profile Image */}
                 <div className="relative mb-6">
                   <img
-                    src={member.img}
+                    src={member.imageUrl}
                     alt={member.name}
                     className="w-full h-64 object-cover rounded-xl shadow-lg"
                   />
@@ -230,7 +114,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Hospital</p>
-                      <p className="font-medium">{member.hospital}</p>
+                      <p className="font-medium">{member?.currHospital[0]?.name}</p>
                     </div>
                   </div>
                 </div>
@@ -238,7 +122,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
                 {/* Quick Stats */}
                 <div className="mt-6 grid grid-cols-2 gap-4">
                   <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-                    <div className="text-2xl font-bold text-[#326EAC]">{member.experience}</div>
+                    <div className="text-2xl font-bold text-[#326EAC]">{new Date().getFullYear() - new Date(member?.dateOfJoining).getFullYear()}+</div>
                     <p className="text-sm text-gray-500">Experience</p>
                   </div>
                   <div className="bg-white p-4 rounded-xl shadow-sm text-center">
@@ -269,8 +153,8 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
                   Qualifications
                 </h4>
                 <div className="bg-linear-to-r from-blue-50 to-white p-6 rounded-xl border-l-4 border-[#326EAC]">
-                  <p className="text-lg font-medium text-gray-800">{member.qualifications}</p>
-                  <p className="text-gray-600 mt-2">{member.sub}</p>
+                  <p className="text-lg font-medium text-gray-800">{member.qualification.join(',')}</p>
+                  <p className="text-gray-600 mt-2">{member.qualification.join(',')}</p>
                 </div>
               </div>
 
@@ -281,9 +165,13 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
                   Specialization
                 </h4>
                 <div className="bg-white p-4 rounded-xl border border-blue-100">
-                  <span className="inline-block px-4 py-2 bg-[#326EAC] text-white rounded-full font-medium">
-                    {member.specialization}
-                  </span>
+                  {
+                    member?.specialization.map((sp, idx)=>(
+                      <span key={idx} className="inline-block px-4 py-2 bg-[#326EAC] text-white rounded-full font-medium">
+                        {sp}
+                      </span>
+                    ))
+                  }
                 </div>
               </div>
 
@@ -318,7 +206,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
                 </div>
                 <div className="mt-4">
                   <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full">
-                    {member.title}
+                    {member.role}
                   </span>
                 </div>
               </div>
@@ -330,7 +218,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
         <div className="sticky bottom-0 bg-white p-6 border-t border-gray-200">
           <div className="flex justify-between items-center">
             <p className="text-gray-600 text-sm">
-              Member since 2008 • OSOO ID: OSOO-{member.id.toString().padStart(3, '0')}
+              Member since {new Date(member?.dateOfJoining).getFullYear()} • OSOO ID: {member.id.toString().padStart(3, '0')}
             </p>
             <button
               onClick={onClose}
@@ -348,6 +236,7 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
 export default function AboutUs() {
   const [selectedMember, setSelectedMember] = useState(null);
   const [showMemberDialog, setShowMemberDialog] = useState(false);
+  const {councilmember} = useData();
 
   const handleViewProfile = (member) => {
     setSelectedMember(member);
@@ -531,15 +420,15 @@ export default function AboutUs() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {councilMembers.map((member) => (
+                {councilmember.map((member) => (
                   <div 
-                    key={member.id} 
+                    key={member._id} 
                     className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl hover:border-[#326EAC]/30 transition-all duration-300 group"
                   >
                     {/* Image Container */}
                     <div className="h-64 overflow-hidden">
                       <img
-                        src={member.img}
+                        src={member.imageUrl}
                         alt={member.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -553,10 +442,10 @@ export default function AboutUs() {
                       <h4 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h4>
                       <div className="flex items-center gap-2 mb-3">
                         <span className="px-3 py-1 bg-[#326EAC] text-white text-sm font-medium rounded-full">
-                          {member.title}
+                          {member.role}
                         </span>
                       </div>
-                      <p className="text-gray-600 text-sm mb-4">{member.sub}</p>
+                      <p className="text-gray-600 text-sm mb-4">{member.qualification.join(",")}</p>
                       
                       <div className="pt-4 border-t border-gray-100">
                         <button 

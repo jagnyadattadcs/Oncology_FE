@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 const MemberSection = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
     };
 
     handleResize();
@@ -49,163 +51,317 @@ const MemberSection = () => {
     },
   ];
 
-  return (
-    <div 
-      className="min-h-screen relative overflow-hidden"
-    >      
-      {/* White content container similar to AboutSection */}
-      <div className="relative z-10 w-full max-w-8xl mx-auto mb-10">
-        {/* Header - positioned similar to AboutSection */}
-        <div className="pt-8 sm:pt-12 md:pt-16 px-4 sm:px-6 md:px-8 lg:px-10">
-          <div className="mb-8 sm:mb-12 md:mb-10">
-            <h2 className="text-center text-3xl font-bold text-[#336EAA]">
-              Our Team Members
-            </h2>
-            <p className="text-center text-lg text-black mt-2 max-w-3xl mx-auto">
-              Dedicated leaders working together for growth and impactful change in our community
-            </p>
-          </div>
-        </div>
+  // Mobile & Tablet Grid View
+  const renderMobileTabletGrid = () => (
+    <div className="md:hidden lg:hidden">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+        {members.map((member) => (
+          <motion.div
+            key={member.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+          >
+            <div className="relative h-48 sm:h-56">
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-8 bg-[#326EAC] rounded"></div>
+                  <div>
+                    <p className="text-white font-bold text-sm">{member.name}</p>
+                    <p className="text-gray-200 text-xs">{member.role}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
 
-        {/* Main content area with white background */}
-        <div className="relative bg-white rounded-xl shadow-xl mx-4 sm:mx-6 md:mx-8 lg:mx-10 p-6 sm:p-8 md:p-10 min-h-[500px]">
-          
-          {/* Decorative borders similar to AboutSection */}
-          {/* <div className='absolute top-10 right-10 w-40 h-32 border-6 rounded-2xl border-[#326EAC] hidden md:block'></div> */}
-          <div className='absolute top-10 right-10 w-40 h-32 border-6 border-r-0 rounded-2xl border-white shadow-2xl hidden md:block'></div>
-          <div className='absolute bottom-10 left-10 w-40 h-32 border-6 border-r-0 rounded-2xl border-white shadow-2xl hidden md:block'></div>
+  // Desktop Carousel View (original)
+  const renderDesktopCarousel = () => (
+    <div className="hidden lg:block">
+      <div className="mb-8 sm:mb-12 flex justify-center">
+        <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-3 sm:pb-4 items-end justify-center w-full">
+          {members.map((member, index) => {
+            let cardWidth = 200;
+            
+            if (expandedIndex === index) {
+              cardWidth = 340;
+            }
+            if (expandedIndex === null && index === 0) {
+              cardWidth = 340;
+            }
 
-          {/* Members Container */}
-          <div className="relative z-20">
-            <div className="mb-8 sm:mb-12 flex justify-center">
-              <div className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-3 sm:pb-4 items-end justify-center w-full">
-                {members.map((member, index) => {
-                  let cardWidth = isMobile ? 140 : 200;
-                  
-                  if (expandedIndex === index) {
-                    cardWidth = isMobile ? 280 : 340;
-                  }
-                  if (expandedIndex === null && index === 0) {
-                    cardWidth = isMobile ? 280 : 340;
-                  }
+            return (
+              <motion.div
+                key={member.id}
+                onClick={() =>
+                  setExpandedIndex(expandedIndex === index ? null : index)
+                }
+                className="shrink-0 cursor-pointer group transition-all duration-300 rounded-2xl overflow-hidden border-2 border-white shadow-lg hover:shadow-2xl"
+                style={{
+                  backgroundImage: `url(${member.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: "400px",
+                }}
+                animate={{
+                  width: cardWidth,
+                }}
+                transition={{
+                  duration: 0.2,
+                }}
+              >
+                <motion.div className="w-full h-full overflow-hidden relative">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
 
-                  return (
-                    <motion.div
-                      key={member.id}
-                      onClick={() =>
-                        setExpandedIndex(expandedIndex === index ? null : index)
-                      }
-                      className="shrink-0 cursor-pointer group transition-all duration-300 rounded-2xl overflow-hidden border-2 border-white shadow-lg hover:shadow-2xl"
-                      style={{
-                        backgroundImage: `url(${member.image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        height: "clamp(280px, 65vw, 400px)",
-                      }}
-                      animate={{
-                        width: cardWidth,
-                      }}
-                      transition={{
-                        duration: 0.2,
-                      }}
-                    >
-                      <motion.div className="w-full h-full overflow-hidden relative">
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-full h-full object-cover"
-                        />
+                  {/* Dark Gradient Overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
 
-                        {/* Dark Gradient Overlay */}
-                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                  {/* Role Text - Rotates from vertical to horizontal */}
+                  <motion.div
+                    className="absolute bottom-15 left-10 text-white font-bold origin-bottom-left whitespace-nowrap"
+                    animate={{
+                      rotate:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? 0
+                          : -90,
+                      fontSize:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? "1.875rem"
+                          : "1rem",
+                    }}
+                    transition={{
+                      duration: 0.3,
+                    }}
+                  >
+                    {member.role}
+                  </motion.div>
 
-                        {/* Role Text - Rotates from vertical to horizontal */}
+                  {/* Horizontal Text Section - Shows on expand OR always on first card */}
+                  <motion.div
+                    className="absolute bottom-6 left-6 right-6 text-sm"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{
+                      opacity:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? 1
+                          : 0,
+                      y:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? 0
+                          : 10,
+                    }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-1 h-19 bg-[#326EAC] rounded shrink-0"></div>
+                      <div className="flex flex-col pt-10">
                         <motion.div
-                          className="absolute bottom-3 sm:bottom-4 md:bottom-15 left-4 sm:left-6 md:left-10 text-white font-bold origin-bottom-left whitespace-nowrap"
+                          initial={{ scaleX: 0, opacity: 0 }}
                           animate={{
-                            rotate:
+                            scaleX:
                               expandedIndex === index ||
                               (expandedIndex === null && index === 0)
-                                ? 0
-                                : -90,
-                            fontSize:
-                              expandedIndex === index ||
-                              (expandedIndex === null && index === 0)
-                                ? "clamp(1rem, 3vw, 1.875rem)"
-                                : "clamp(0.75rem, 2vw, 1rem)",
-                          }}
-                          transition={{
-                            duration: 0.3,
-                          }}
-                        >
-                          {member.role}
-                        </motion.div>
-
-                        {/* Horizontal Text Section - Shows on expand OR always on first card */}
-                        <motion.div
-                          className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-3 sm:left-4 md:left-6 right-3 sm:right-4 md:right-6 text-xs sm:text-sm"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{
+                                ? 1
+                                : 0,
                             opacity:
                               expandedIndex === index ||
                               (expandedIndex === null && index === 0)
                                 ? 1
                                 : 0,
-                            y:
+                          }}
+                          transition={{ duration: 0.3, delay: 0.1 }}
+                          style={{ originX: 0 }}
+                          className="bg-white text-black px-3 py-2 rounded inline-block max-w-xs shadow-md"
+                        >
+                          <p className="font-semibold text-sm leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                            {member.name}
+                          </p>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Tablet View (Modified Carousel)
+  const renderTabletView = () => (
+    <div className="hidden md:block lg:hidden">
+      <div className="mb-8 flex justify-center">
+        <div className="flex flex-wrap gap-3  pb-4 items-end justify-center w-full px-4">
+          {members.map((member, index) => {
+            let cardWidth = 180;
+            
+            if (expandedIndex === index) {
+              cardWidth = 280;
+            }
+            if (expandedIndex === null && index === 0) {
+              cardWidth = 280;
+            }
+
+            return (
+              <motion.div
+                key={member.id}
+                onClick={() =>
+                  setExpandedIndex(expandedIndex === index ? null : index)
+                }
+                className="shrink-0 cursor-pointer group transition-all duration-300 rounded-2xl overflow-hidden border-2 border-white shadow-lg hover:shadow-2xl"
+                style={{
+                  backgroundImage: `url(${member.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: "350px",
+                }}
+                animate={{
+                  width: cardWidth,
+                }}
+                transition={{
+                  duration: 0.2,
+                }}
+              >
+                <motion.div className="w-full h-full overflow-hidden relative">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+
+                  <motion.div
+                    className="absolute bottom-12 left-6 text-white font-bold origin-bottom-left whitespace-nowrap"
+                    animate={{
+                      rotate:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? 0
+                          : -90,
+                      fontSize:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? "1.5rem"
+                          : "0.875rem",
+                    }}
+                    transition={{
+                      duration: 0.3,
+                    }}
+                  >
+                    {member.role}
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute bottom-4 left-4 right-4 text-xs"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{
+                      opacity:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? 1
+                          : 0,
+                      y:
+                        expandedIndex === index ||
+                        (expandedIndex === null && index === 0)
+                          ? 0
+                          : 10,
+                    }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <div className="flex items-start gap-2">
+                      <div className="w-1 h-14 bg-[#326EAC] rounded shrink-0"></div>
+                      <div className="flex flex-col pt-6">
+                        <motion.div
+                          initial={{ scaleX: 0, opacity: 0 }}
+                          animate={{
+                            scaleX:
                               expandedIndex === index ||
                               (expandedIndex === null && index === 0)
-                                ? 0
-                                : 10,
+                                ? 1
+                                : 0,
+                            opacity:
+                              expandedIndex === index ||
+                              (expandedIndex === null && index === 0)
+                                ? 1
+                                : 0,
                           }}
-                          transition={{ duration: 0.15 }}
+                          transition={{ duration: 0.3, delay: 0.1 }}
+                          style={{ originX: 0 }}
+                          className="bg-white text-black px-2 py-1.5 rounded inline-block max-w-xs shadow-md"
                         >
-                          <div className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                            {/* Blue accent bar matching AboutSection theme */}
-                            <div className="w-1 h-12 sm:h-14 md:h-16 lg:h-19 bg-[#326EAC] rounded shrink-0"></div>
-
-                            <div className="flex flex-col pt-0.5 sm:pt-1 md:pt-2 lg:pt-10">
-                              {/* Name */}
-                              <motion.div
-                                initial={{ scaleX: 0, opacity: 0 }}
-                                animate={{
-                                  scaleX:
-                                    expandedIndex === index ||
-                                    (expandedIndex === null && index === 0)
-                                      ? 1
-                                      : 0,
-                                  opacity:
-                                    expandedIndex === index ||
-                                    (expandedIndex === null && index === 0)
-                                      ? 1
-                                      : 0,
-                                }}
-                                transition={{ duration: 0.3, delay: 0.1 }}
-                                style={{ originX: 0 }}
-                                className="bg-white text-black px-1.5 sm:px-2 md:px-3 py-1 sm:py-1.5 md:py-2 rounded inline-block max-w-xs shadow-md"
-                              >
-                                <p className="font-semibold text-xs sm:text-xs md:text-sm leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                                  {member.name}
-                                </p>
-                              </motion.div>
-                            </div>
-                          </div>
+                          <p className="font-semibold text-xs leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                            {member.name}
+                          </p>
                         </motion.div>
-                      </motion.div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
 
-            {/* Show More Button - styled similar to AboutSection */}
+  return (
+    <div className="min-h-screen relative overflow-hidden">
+      <div className="relative z-10 w-full max-w-8xl mx-auto mb-10">
+        <div className="pt-8 sm:pt-12 md:pt-16 px-4 sm:px-6 md:px-8 lg:px-10">
+          <div className="mb-8 sm:mb-12 md:mb-10">
+            <h2 className="text-center text-2xl sm:text-3xl lg:text-4xl font-bold text-[#336EAA]">
+              Our Coucil Members
+            </h2>
+            <p className="text-center text-sm sm:text-base lg:text-lg text-black mt-2 max-w-3xl mx-auto px-4">
+              Dedicated leaders working together for growth and impactful change in our community
+            </p>
+          </div>
+        </div>
+
+        <div className="relative bg-white rounded-xl shadow-xl mx-4 sm:mx-6 md:mx-8 lg:mx-10 p-4 sm:p-6 md:p-8 lg:p-10 min-h-[400px]">
+          <div className="relative z-20">
+            {/* Mobile Grid View */}
+            {renderMobileTabletGrid()}
+            
+            {/* Tablet View */}
+            {renderTabletView()}
+            
+            {/* Desktop Carousel View */}
+            {renderDesktopCarousel()}
+
+            {/* Show More Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex justify-center mt-8 sm:mt-12"
+              className="flex justify-center mt-8 sm:mt-10 md:mt-12 lg:mt-12"
             >
               <Link
-                className="text-lg font-semibold p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
+                to="/members"
+                className="text-sm sm:text-base lg:text-lg font-semibold p-2 sm:p-3 px-6 sm:px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
               >
                 View All Members
               </Link>

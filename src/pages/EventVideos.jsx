@@ -115,6 +115,8 @@ const formatDate = (dateString) => {
   });
 };
 
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api";
+
 export default function EventVideos() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -124,22 +126,32 @@ export default function EventVideos() {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [showVideoModal, setShowVideoModal] = useState(false);
 
-  // Load videos (in real app, fetch from backend)
+  // Load videos
   useEffect(() => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setVideos(mockVideos);
-      setFilteredVideos(mockVideos);
-      setLoading(false);
-    }, 500);
+    const fetchVideos = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${API_URL}/videos`);
+        setVideos(response.data.data);
+        setFilteredVideos(response.data.data);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+        toast.error('Failed to load videos');
+        // Fallback to mock data
+        setVideos(mockVideos);
+        setFilteredVideos(mockVideos);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideos();
   }, []);
 
   // Filter videos based on search and category
   useEffect(() => {
     let result = videos;
 
-    // Filter by search term
     if (searchTerm) {
       result = result.filter(video =>
         video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -148,7 +160,6 @@ export default function EventVideos() {
       );
     }
 
-    // Filter by category
     if (selectedCategory !== "all") {
       result = result.filter(video => video.category === selectedCategory);
     }
@@ -169,8 +180,15 @@ export default function EventVideos() {
   };
 
   // Handle share
-  const handleShareVideo = (video) => {
-    const videoUrl = `https://youtube.com/watch?v=${video.youtubeId}`;
+  const handleShareVideo = async (video) => {
+  try {
+    // Track share in backend
+    await axios.post(`${API_URL}/videos/${video._id}/meta/shares`);
+  } catch (error) {
+    console.error('Error tracking share:', error);
+  }
+  
+  const videoUrl = `https://youtube.com/watch?v=${video.youtubeId}`;
     if (navigator.share) {
       navigator.share({
         title: video.title,
@@ -184,7 +202,14 @@ export default function EventVideos() {
   };
 
   // Handle download
-  const handleDownload = (video) => {
+  const handleDownload = async (video) => {
+    try {
+      // Track download in backend
+      await axios.post(`${API_URL}/videos/${video._id}/meta/downloads`);
+    } catch (error) {
+      console.error('Error tracking download:', error);
+    }
+    
     toast.info(`Download link for "${video.title}" will be available soon!`);
   };
 
@@ -289,7 +314,7 @@ export default function EventVideos() {
             </div>
 
             {/* Search and Filter */}
-            <div className="bg-linear-to-r from-red-50 to-gray-50 rounded-xl p-6 mb-8">
+            <div className="bg-linear-to-r from-blue-50 to-gray-50 rounded-xl p-6 mb-8">
               <div className="flex flex-col lg:flex-row gap-4">
                 {/* Search Bar */}
                 <div className="flex-1">
@@ -301,7 +326,7 @@ export default function EventVideos() {
                       type="text"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition"
+                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
                       placeholder="Search videos by title, speaker, or description..."
                     />
                   </div>
@@ -316,7 +341,7 @@ export default function EventVideos() {
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition appearance-none"
+                      className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition appearance-none"
                     >
                       {videoCategories.map(category => (
                         <option key={category.id} value={category.id}>
@@ -339,7 +364,7 @@ export default function EventVideos() {
                       setSearchTerm("");
                       setSelectedCategory("all");
                     }}
-                    className="text-sm text-red-600 hover:text-red-700"
+                    className="text-sm text-blue-600 hover:text-blue-700"
                   >
                     Clear filters
                   </button>
@@ -394,7 +419,7 @@ export default function EventVideos() {
                       <div className="p-4">
                         <h3 
                           onClick={() => handleVideoClick(video)}
-                          className="font-bold text-gray-800 mb-2 line-clamp-2 cursor-pointer hover:text-red-600 transition"
+                          className="font-bold text-gray-800 mb-2 line-clamp-2 cursor-pointer hover:text-blue-600 transition"
                         >
                           {video.title}
                         </h3>

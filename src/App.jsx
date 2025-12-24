@@ -18,6 +18,9 @@ import UpcomingEvents from './pages/UpcomingEvents'
 import PastEvents from './pages/PastEvents'
 import EventVideos from './pages/EventVideos'
 import ImageGallery from './pages/ImageGallery'
+import Academic from './pages/Academic'
+import PageNotFound from './pages/PageNotFound'
+import { DataProvider } from './context/DataContext'
 
 function App() {
   const location = useLocation();
@@ -51,11 +54,13 @@ function App() {
       />
       {/* Show public layout for non-admin paths */}
       {!isAdminPath ? (
+            <DataProvider>
         <>
           <Navbar/>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="/about-us" element={<AboutUs/>} />
+            <Route path="/academic" element={<Academic/>} />
             <Route path="/contact" element={<ContactForm/>} />
             <Route path="/member/benifits" element={<BenefitsOfMembership/>} />
             <Route path="/member/register" element={<MemberRegister/>} />
@@ -67,13 +72,13 @@ function App() {
             <Route path="/events/past-events" element={<PastEvents/>} />
             <Route path="/events/event-videos" element={<EventVideos/>} />
             <Route path="/events/gallery" element={<ImageGallery/>} />
-
             {/* Add redirect to admin login */}
-            <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
-            <Route path="*" element={<Navigate to="/" />} />
+            {/* <Route path="/admin" element={<Navigate to="/admin/login" replace />} /> */}
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Footer/>
         </>
+            </DataProvider>
       ) : (
         /* Show admin layout for admin paths */
         <Routes>

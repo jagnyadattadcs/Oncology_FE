@@ -84,7 +84,7 @@ const WhyJoinSection = () => {
           className="flex justify-center"
         >
           <Link
-            className="text-lg font-semibold p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
+            className="text-lg font-semibold p-2 sm:p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
           >
             Join Now
           </Link>

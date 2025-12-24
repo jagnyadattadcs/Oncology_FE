@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Calendar, MapPin, Users } from 'lucide-react';
+import { useData } from '../context/DataContext';
 
 const galleryItems = [
     {
@@ -47,6 +48,8 @@ const galleryItems = [
   ];
 
 const GallerySection = () => {
+  const {gallery} = useData();
+  if (!gallery || gallery.length === 0) return null;
   return (
     <div 
         className="bg-linear-to-br relative from-slate-50 via-blue-50 to-slate-50 py-16 sm:py-20 px-4"
@@ -76,9 +79,9 @@ const GallerySection = () => {
       {/* Gallery Grid - 4 Smaller Images */}
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-          {galleryItems.map((item, index) => (
+          {gallery.map((item, index) => (
             <motion.div
-              key={item.id}
+              key={item._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -88,7 +91,7 @@ const GallerySection = () => {
               <div className="relative h-[250px] sm:h-[280px] overflow-hidden">
                 {/* Image */}
                 <img 
-                  src={item.image} 
+                  src={item.imageUrl} 
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -97,21 +100,21 @@ const GallerySection = () => {
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-black/20 group-hover:from-black/90 transition-all duration-300"></div>
 
                 {/* Category Badge */}
-                <div className="absolute top-3 left-3">
+                {/* <div className="absolute top-3 left-3">
                   <span className="bg-[#326EAC] backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold">
                     {item.category}
                   </span>
-                </div>
+                </div> */}
 
                 {/* Title Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="text-base sm:text-lg font-bold text-white mb-1 line-clamp-2">
                     {item.title}
                   </h3>
-                  <div className="flex items-center gap-2 text-white/90 text-xs">
+                  {/* <div className="flex items-center gap-2 text-white/90 text-xs">
                     <MapPin className="w-3 h-3" />
                     <span>{item.location}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </motion.div>
@@ -128,7 +131,7 @@ const GallerySection = () => {
         >
           <Link to="/gallery">
             <motion.button
-              className="text-lg flex group items-center justify-center font-semibold p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
+              className="text-lg flex group items-center justify-center font-semibold p-2 sm:p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
             >
               Show More
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
