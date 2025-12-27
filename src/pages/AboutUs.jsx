@@ -314,13 +314,53 @@ export default function AboutUs() {
                 <div className="inline-block px-6 py-2 bg-[#326EAC] text-white rounded-full mb-4">
                   <h2 className="text-2xl md:text-3xl font-bold">Who We Are</h2>
                 </div>
-                <div className="max-w-4xl mx-auto">
-                  <div className="bg-linear-to-r from-blue-50 to-gray-50 p-8 rounded-2xl shadow-lg border border-blue-100">
+                <div className="max-w-7xl mx-auto">
+                  <div className="bg-linear-to-r text-justify from-blue-50 to-gray-50 p-8 rounded-2xl shadow-lg border border-blue-100">
                     <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-                      The <span className="font-bold text-[#326EAC]">Odisha Society Of Oncology (OSOO)</span> is a premier professional organization dedicated to advancing the practice of surgical oncology throughout the state of Odisha. Founded in 2008, we have grown into a vibrant community of surgeons, residents, and allied healthcare professionals.
+                      The <span className="font-bold text-[#326EAC]">Odisha Society of Oncology (OSO)</span> is a registered professional body that brings together
+specialists from all disciplines involved in cancer care across the state of Odisha. Established in the
+year 2008, the society was founded at a time when cancer treatment facilities in the state were
+limited and access to comprehensive oncology care was a significant challenge, especially for the
+underprivileged population. A small group of dedicated and visionary oncologists, who were then
+serving the people of Odisha with limited resources and infrastructure, recognized the urgent need
+for a unified platform to collaborate, share knowledge, and collectively improve cancer care in the
+state. Their commitment and foresight led to the formation of OSO.
                     </p>
                     <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                      Our members are at the forefront of cancer treatment, bringing world-class surgical expertise to patients across Odisha. Through education, research, and collaboration, we work tirelessly to improve outcomes for cancer patients and advance the field.
+                     From its inception, OSO has served as a common forum for oncologists and allied specialists to
+exchange clinical experience, academic insights, and emerging advancements in the field of
+oncology. The founding members worked tirelessly to nurture the society in its early years, fostering
+a spirit of collaboration and professional excellence. Through regular interactions and shared
+learning, OSO gradually evolved into a strong academic and professional organization.
+                    </p>
+                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-2">
+                     Over the years, the oncology landscape in Odisha has undergone remarkable transformation. Several
+new cancer centers have been established across the state, significantly improving access to
+diagnostic and therapeutic services. In parallel, many oncology professionals with national and
+international training have returned to Odisha, contributing their expertise to serve the local
+population. This collective growth has strengthened OSO, both in terms of membership and
+academic stature, enabling it to play a pivotal role in advancing cancer care in the region.
+                    </p>
+                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-2">
+                     Today, the Odisha Society of Oncology has matured into a robust professional body whose members
+are delivering state-of-the-art cancer care comparable to leading institutions across the country. The
+society actively organizes regular academic meetings, conferences, workshops, and continuing
+medical education programs to ensure that its members remain updated with the latest
+developments in oncology. These academic initiatives promote evidence-based practice and
+encourage interdisciplinary collaboration, ultimately benefiting patient care.
+                    </p>
+                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-2">
+                     Looking ahead, OSO aspires to serve as the central academic and professional authority for
+oncology-related activities in the state of Odisha. The society envisions playing a significant role in
+cancer-related research, data collection, and clinical studies relevant to the local population. In the
+future, OSO aims to contribute to the development of standardized guidelines for cancer diagnosis,
+treatment, and follow-up, tailored to the needs and resources of the region.
+                    </p>
+                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-2">
+                     Guided by its founding principles of service, collaboration, and academic excellence, the Odisha
+Society of Oncology remains committed to improving cancer care, promoting research, and
+enhancing professional development, with the ultimate goal of delivering better outcomes and hope
+to patients across the state.
                     </p>
                   </div>
                 </div>
@@ -330,16 +370,25 @@ export default function AboutUs() {
             {/* Mission & Vision Cards */}
             <section className="mb-16 md:mb-20">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Mission Card */}
+                {/* Prsident Card */}
                 <div className="bg-linear-to-br from-blue-50 to-white rounded-2xl shadow-xl p-8 border border-blue-100 transform hover:-translate-y-2 transition-transform duration-300">
                   <div className="flex items-start gap-6">
-                    <div className="w-16 h-16 rounded-full bg-linear-to-r from-[#326EAC] to-blue-600 flex items-center justify-center text-white text-2xl shadow-lg">
-                      <FaBullseye />
+                    <div>
+                      <div className="w-30 h-30 rounded-lg overflow-hidden">
+                        <img
+                          src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766812775/Screenshot_2025-12-27_104908_ntbpx4.png"
+                          alt="president"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h3 className="text-2xl font-bold text-[#326EAC] mt-4">President</h3>
+                      <p className="font-semibold">2026 - 2027</p>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-[#326EAC] mb-4">Our Mission</h3>
+                      <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Mission by</h2>
+                      <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Surendra Nath Senapati</h2>
                       <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-[#326EAC]">
-                        <p className="text-gray-700 leading-relaxed">
+                        <p className="text-gray-700 leading-relaxed text-justify">
                           To promote excellence in the practice of surgical oncology through continuing medical education, research, and professional development. We strive to create a collaborative platform where surgical oncologists can share knowledge and ultimately improve patient care across Odisha.
                         </p>
                       </div>
@@ -347,17 +396,26 @@ export default function AboutUs() {
                   </div>
                 </div>
 
-                {/* Vision Card */}
+                {/* Secretary Card */}
                 <div className="bg-linear-to-br from-blue-50 to-white rounded-2xl shadow-xl p-8 border border-blue-100 transform hover:-translate-y-2 transition-transform duration-300">
                   <div className="flex items-start gap-6">
-                    <div className="w-16 h-16 rounded-full bg-linear-to-r from-[#326EAC] to-blue-600 flex items-center justify-center text-white text-2xl shadow-lg">
-                      <FaEye />
+                    <div>
+                      <div className="w-30 h-30 rounded-lg overflow-hidden">
+                        <img
+                          src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766813103/Screenshot_2025-12-27_105446_l0pcfj.png"
+                          alt="secretary"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h3 className="text-2xl font-bold text-[#326EAC] mt-4">Secretary</h3>
+                      <p className="font-semibold">2026 - 2027</p>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-[#326EAC] mb-4">Our Vision</h3>
-                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-blue-500">
-                        <p className="text-gray-700 leading-relaxed">
-                          To be the leading professional body for surgical oncologists in Eastern India, recognized for clinical excellence, innovative research, and compassionate patient care. We envision a future where every cancer patient in Odisha has access to high quality surgical oncology services.
+                      <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Vision by</h2>
+                      <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Sunil Agrawala</h2>
+                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-[#326EAC]">
+                        <p className="text-gray-700 leading-relaxed text-justify">
+                          To promote excellence in the practice of surgical oncology through continuing medical education, research, and professional development. We strive to create a collaborative platform where surgical oncologists can share knowledge and ultimately improve patient care across Odisha.
                         </p>
                       </div>
                     </div>
@@ -415,8 +473,8 @@ export default function AboutUs() {
             {/* Council Members Section */}
             <section className="mb-16 md:mb-20">
               <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Council Members</h3>
-                <p className="text-gray-600">Leadership guiding OSOO towards excellence</p>
+                <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Leadership Members</h3>
+                <p className="text-gray-600">Leadership guiding OSO towards excellence</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -445,9 +503,9 @@ export default function AboutUs() {
                           {member.role}
                         </span>
                       </div>
-                      <p className="text-gray-600 text-sm mb-4">{member.qualification.join(",")}</p>
+                      {/* <p className="text-gray-600 text-sm mb-4">{member.qualification.join(",")}</p> */}
                       
-                      <div className="pt-4 border-t border-gray-100">
+                      {/* <div className="pt-4 border-t border-gray-100">
                         <button 
                           onClick={() => handleViewProfile(member)}
                           className="flex items-center justify-center gap-2 w-full py-2 px-4 bg-gray-50 text-gray-700 rounded-lg hover:bg-[#326EAC] hover:text-white transition-all duration-300 group-hover:shadow-md"
@@ -455,7 +513,7 @@ export default function AboutUs() {
                           View Profile
                           <FaChevronRight className="group-hover:translate-x-1 transition-transform" />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}

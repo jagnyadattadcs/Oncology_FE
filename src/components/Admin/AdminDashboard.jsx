@@ -30,10 +30,10 @@ import EventVideosPage from './EventVideosPage';
 const AdminDashboard = () => {
   const { admin, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('homecarousel');
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: <FaHome />, component: <Dashboard /> },
+    // { id: 'dashboard', label: 'Dashboard', icon: <FaHome />, component: <Dashboard /> },
     { id: 'homecarousel', label: 'Home Carousel', icon: <FaImages />, component: <HomeCarousel /> },
     { id: 'gallery', label: 'Gallery', icon: <FaImage />, component: <Gallery /> },
     { id: 'videos', label: 'Event Videos', icon: <FaPlayCircle />, component: <EventVideosPage /> },

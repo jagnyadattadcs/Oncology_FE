@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaLocationDot, FaChevronRight } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { useData } from "../context/DataContext";
@@ -11,112 +11,142 @@ const formatDate = (dateStr) =>
     year: "numeric",
   });
 
+const EventCard = ({ title, image, events }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <div 
+      className="w-full flex flex-col rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-lg transition-all duration-300"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="w-full relative h-60 overflow-hidden">
+        <div className="absolute top-4 left-4 z-10">
+          <h2 className="py-2 px-4 rounded-3xl bg-white border border-blue-300 font-bold text-blue-800 text-sm sm:text-base shadow-md">
+            {title}
+          </h2>
+        </div>
+        <img 
+          src={image} 
+          alt={title}
+          className={`w-full h-full object-cover transition-transform duration-500 ${isHovered ? 'scale-102' : 'scale-100'}`}
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+      </div>
+      
+      <div className="w-full flex-1 p-4 sm:p-5 bg-linear-to-b from-white to-blue-50">
+        <div className="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+          {events.map((event, index) => (
+            <Link 
+              key={index}
+              to={`/event/${index}`}
+              className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-blue-50 hover:shadow-sm transition-all duration-200 group"
+            >
+              <div className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-linear-to-r from-blue-100 to-blue-200 border border-blue-300 text-blue-800 font-semibold text-sm transition-all duration-300 group-hover:scale-110 group-hover:from-blue-200 group-hover:to-blue-300">
+                {index + 1}
+              </div>
+              <span className="flex-1 text-gray-700 font-medium text-sm sm:text-base group-hover:text-blue-700 transition-colors duration-200">
+                {event}
+              </span>
+              <FaChevronRight className="text-blue-500 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200" />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function EventSection() {
-  const {events} = useData();
+  const { events } = useData();
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   if (!events || events.length === 0) return null;
   
+  // Sample data - replace with your actual data
+  const eventCategories = [
+    {
+      title: "Cancer Celebration Month & Week",
+      image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1766474013/osoo_events/av0dnrtypucblm9rj8if.png",
+      events: [
+        "Breast Cancer Awareness Walkathon",
+        "Cancer Survivors Meet & Greet",
+        "Nutrition Workshop for Patients",
+        "Yoga and Meditation Session",
+        "Fundraising Gala Dinner",
+        "Medical Camp for Early Detection",
+        "Art Therapy Workshop"
+      ]
+    },
+    {
+      title: "State & National Conferences & Symposium",
+      image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1766474013/osoo_events/av0dnrtypucblm9rj8if.png",
+      events: [
+        "National Oncology Conference 2024",
+        "State Level Cancer Research Symposium",
+        "Pediatric Oncology Workshop",
+        "Radiation Therapy Advances Seminar",
+        "Palliative Care Conference",
+        "Cancer Genetics Symposium",
+        "Oncology Nursing Summit"
+      ]
+    }
+  ];
+  
   return (
-    <div className="py-8 md:py-12 px-4 sm:px-6 lg:px-10 bg-gray-50">
+    <div className="py-8 md:py-12 px-4 sm:px-6 lg:px-10 bg-linear-to-b from-gray-50 to-white">
       {/* Header Section */}
-      <div className="mb-6 md:mb-8">
-        <h2 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-[#326EAC] text-center md:text-left">
-          Upcoming Events
-        </h2>
-        <p className="text-base sm:text-lg lg:text-xl text-[#255280] font-semibold text-center md:text-left mt-2">
+      <div className="mb-8 md:mb-10 lg:mb-12 text-center">
+        <div className="inline-block mb-3">
+          <h2 className="font-bold text-2xl sm:text-3xl lg:text-4xl bg-linear-to-r from-[#326EAC] to-[#255280] bg-clip-text text-transparent">
+            Upcoming Events
+          </h2>
+          <div className="h-1 w-3/4 mx-auto bg-linear-to-r from-blue-300 to-blue-500 rounded-full mt-2"></div>
+        </div>
+        <p className="text-base sm:text-lg lg:text-xl text-[#255280] font-semibold mt-3">
           Join us in our upcoming initiatives and events
         </p>
       </div>
 
-      {/* Events Container */}
-      <div className="flex flex-col lg:flex-row gap-6 md:gap-8 mt-4">
-        {/* Main Featured Event - Full width on mobile, half on desktop */}
-        <div className="w-full lg:w-1/2 px-2 sm:px-4">
-          <div className="bg-white rounded-2xl shadow-lg shadow-[#87b7e7] overflow-hidden">
-            <img 
-              src={events[0].imageUrl} 
-              alt="Upcoming event-1" 
-              className="w-full h-48 sm:h-56 md:h-64 lg:h-72 object-cover" 
-            />
-            <div className="p-4 sm:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                <div className="flex-1">
-                  <h3 className="text-[#326EAC] font-bold text-lg sm:text-xl md:text-2xl">
-                    {events[0].title}
-                  </h3>
-                  <p className="flex items-center text-xs sm:text-sm text-gray-600 mt-1">
-                    <FaLocationDot className="text-[#326EAC] mr-1" /> 
-                    {events[0].venue}
-                  </p>
-                </div>
-                <div className="flex items-center justify-center gap-1 border-l-4 border-[#326EAC] bg-[#93d0db] font-semibold text-[#245d97] rounded-sm px-2 py-1 text-sm">
-                  <SlCalender /> 
-                  <span className="whitespace-nowrap">{formatDate(events[0].date)}</span>
-                </div>
-              </div>
-              <p className="text-xs sm:text-sm md:text-base text-justify text-gray-700">
-                {events[0].description}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Side Events List - Full width on mobile, half on desktop */}
-        <div className="w-full lg:w-1/2 px-2 sm:px-4">
-          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-            {/* Map through remaining events for better maintainability */}
-            {events.slice(1).map((event) => (
-              <div 
-                key={event._id}
-                className="bg-white rounded-lg shadow-lg shadow-[#87b7e7] overflow-hidden"
-              >
-                <div className="flex flex-col sm:flex-row">
-                  {/* Event Image */}
-                  <div className="w-full sm:w-2/5">
-                    <img 
-                      src={event.imageUrl} 
-                      alt={event.title} 
-                      className="w-full h-40 sm:h-full object-cover"
-                    />
-                  </div>
-                  
-                  {/* Event Details */}
-                  <div className="w-full sm:w-3/5 p-3 sm:p-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                      <div className="flex-1">
-                        <h3 className="text-[#326EAC] font-bold text-base sm:text-lg md:text-xl">
-                          {event.title}
-                        </h3>
-                        <p className="flex items-center text-xs text-gray-600 mt-1">
-                          <FaLocationDot className="text-[#326EAC] mr-1" /> 
-                          {event.venue}
-                        </p>
-                      </div>
-                      <div className="flex items-center justify-center gap-1 border-l-4 border-[#326EAC] bg-[#93d0db] font-semibold text-[#245d97] text-xs sm:text-sm rounded-sm px-2 py-1">
-                        <SlCalender /> 
-                        <span className="whitespace-nowrap">{formatDate(event.date)}</span>
-                      </div>
-                    </div>
-                    <p className="text-xs sm:text-sm text-justify text-gray-700 line-clamp-3">
-                      {event.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Events Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 p-4 sm:p-6">
+        {eventCategories.map((category, index) => (
+          <EventCard 
+            key={index}
+            title={category.title}
+            image={category.image}
+            events={category.events}
+          />
+        ))}
       </div>
 
       {/* Show More Button */}
-      <div className="w-full text-center mt-8 sm:mt-10 md:mt-12 lg:mt-15 mb-4 md:mb-5">
+      <div className="w-full text-center mt-10 sm:mt-12 md:mt-16">
         <Link 
           to="/events/upcoming-events"
-          className='inline-block text-sm sm:text-base md:text-lg font-semibold p-2 sm:p-3 px-6 sm:px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer'
+          className="text-lg font-semibold p-2 sm:p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
         >
-          Show More
+          View All Events
         </Link>
       </div>
+
+      {/* Custom Scrollbar Styles */}
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #93c5fd, #3b82f6);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #60a5fa, #2563eb);
+        }
+      `}</style>
     </div>
   );
 }

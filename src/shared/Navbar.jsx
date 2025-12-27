@@ -24,10 +24,10 @@ const navItems = [
         name: "Member Login",
         link: "/member/login"
       },
-      // {
-      //   name: "Life Member",
-      //   link: "/member/life-members"
-      // },
+      {
+        name: "List of Life Members",
+        link: "/member/life-members"
+      },
       // {
       //   name: "Associate Members",
       //   link: "/member/accosiate-members"
@@ -62,6 +62,10 @@ const navItems = [
   {
     name: "Academic",
     link: "/academic"
+  },
+  {
+    name: "Research",
+    link: "/research"
   }
 ]
 

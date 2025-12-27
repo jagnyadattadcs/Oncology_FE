@@ -12,8 +12,8 @@ const MemberRegister = () => {
     name: '',
     email: '',
     phone: '',
-    documentType: 'aadhar',
-    documentNo: '',
+    speciality: '',
+    qualification: [],
     agreeWithTerms: false
   });
   const [documentImage, setDocumentImage] = useState(null);
@@ -22,21 +22,49 @@ const MemberRegister = () => {
   const [registrationEmail, setRegistrationEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const documentTypes = [
-    { value: 'aadhar', label: 'Aadhar Card' },
-    { value: 'pan', label: 'PAN Card' },
-    { value: 'driving_license', label: 'Driving License' },
-    { value: 'passport', label: 'Passport' },
-    { value: 'voter_id', label: 'Voter ID' },
-    { value: 'medical_license', label: 'Medical License' }
+  const specialityTypes = [
+    { value: 'surgical_oncology', label: 'Surgical Oncology' },
+    { value: 'radiation_oncology', label: 'Radiation Oncology' },
+    { value: 'medical_oncology', label: 'Medical Oncology' },
+    { value: 'paediatric_oncology', label: 'Paediatric Oncology' },
+    { value: 'haematology_haematooncology', label: 'Haematology & Haemato-oncology' },
+    { value: 'gynaecologic_oncology', label: 'Gynaecologic Oncology' },
+    { value: 'head_neck_oncology', label: 'Head and Neck Oncology' },
+    { value: 'oncopathology', label: 'Oncopathology' },
+    { value: 'uro_oncology', label: 'Uro-Oncology' },
+    { value: 'radiology', label: 'Radiology' },
+    { value: 'nuclear_medicine', label: 'Nuclear Medicine' },
+    { value: 'palliative_care', label: 'Palliative Care' },
+    { value: 'others', label: 'Others' }
+  ];
+
+  const certificateTypes = [
+    { value: 'dm', label: 'DM' },
+    { value: 'mch', label: 'MCh' },
+    { value: 'md', label: 'MD' },
+    { value: 'ms', label: 'MS' },
+    { value: 'fellowship', label: 'Fellowship' },
+    { value: 'drnb', label: 'DrNB' },
+    { value: 'dnb', label: 'DNB' },
+    { value: 'others', label: 'Others' }
   ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    const { name, value, options } = e.target;
+    if (name === 'qualification') {
+      const selectedValues = Array.from(options)
+        .filter(option => option.selected)
+        .map(option => option.value);
+      setFormData(prev => ({
+        ...prev,
+        [name]: selectedValues
+      }));
+    }else{
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -123,8 +151,8 @@ const MemberRegister = () => {
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('phone', formData.phone);
-      formDataToSend.append('documentType', formData.documentType);
-      formDataToSend.append('documentNo', formData.documentNo);
+      formDataToSend.append('speciality', formData.speciality);
+      formDataToSend.append('qualification', formData.qualification);
       formDataToSend.append('agreeWithTerms', formData.agreeWithTerms);
       formDataToSend.append('documentImage', documentImage);
 
@@ -249,18 +277,18 @@ const MemberRegister = () => {
                   )}
                 </div>
 
-                {/* Document Type */}
+                {/* Speciality Type */}
                 <div>
                   <label className="block text-gray-700 text-sm font-medium mb-2">
-                    Document Type <span className="text-red-500">*</span>
+                    Speciality <span className="text-red-500">*</span>
                   </label>
                   <select
-                    name="documentType"
-                    value={formData.documentType}
+                    name="speciality"
+                    value={formData.speciality}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition"
                   >
-                    {documentTypes.map((type) => (
+                    {specialityTypes.map((type) => (
                       <option key={type.value} value={type.value}>
                         {type.label}
                       </option>
@@ -268,40 +296,46 @@ const MemberRegister = () => {
                   </select>
                 </div>
 
-                {/* Document Number */}
-                <div className="md:col-span-2">
+                <div>
                   <label className="block text-gray-700 text-sm font-medium mb-2">
-                    Document Number <span className="text-red-500">*</span>
+                    Qualifications <span className="text-red-500">*</span>
                   </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FaIdCard className="text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      name="documentNo"
-                      value={formData.documentNo}
-                      onChange={handleChange}
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition ${errors.documentNo ? 'border-red-500' : 'border-gray-300'}`}
-                      placeholder="Enter your document number"
-                    />
+                  <div className="flex gap-4">
+                    {certificateTypes.map((type) => (
+                      <label key={type.value} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          name="qualification"
+                          value={type.value}
+                          checked={formData.qualification.includes(type.value)}
+                          onChange={(e) => {
+                            const { value, checked } = e.target;
+                            setFormData(prev => ({
+                              ...prev,
+                              qualification: checked
+                                ? [...prev.qualification, value]
+                                : prev.qualification.filter(q => q !== value)
+                            }));
+                          }}
+                          className="mr-2"
+                        />
+                        {type.label}
+                      </label>
+                    ))}
                   </div>
-                  {errors.documentNo && (
-                    <p className="text-red-500 text-xs mt-1">{errors.documentNo}</p>
-                  )}
                 </div>
 
                 {/* Document Image Upload */}
                 <div className="md:col-span-2">
                   <label className="block text-gray-700 text-sm font-medium mb-2">
-                    Document Image <span className="text-red-500">*</span>
+                    Qualification Image <span className="text-red-500">*</span>
                   </label>
                   <div className={`border-2 border-dashed rounded-lg p-6 text-center transition ${errors.documentImage ? 'border-red-500 bg-red-50' : 'border-gray-300 hover:border-[#326EAC] hover:bg-blue-50'}`}>
                     <input
                       type="file"
                       id="documentImage"
                       onChange={handleFileChange}
-                      accept="image/*,application/pdf"
+                      accept="image/*"
                       className="hidden"
                     />
                     <label htmlFor="documentImage" className="cursor-pointer">

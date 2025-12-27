@@ -97,8 +97,7 @@ const Members = () => {
       member.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.uniqueId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.phone?.includes(searchTerm) ||
-      member.documentNo?.toLowerCase().includes(searchTerm.toLowerCase());
+      member.phone?.includes(searchTerm);
 
     // Status filter
     let statusMatch = true;
@@ -471,7 +470,7 @@ const Members = () => {
                     Contact
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Document
+                    Speciality
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -520,10 +519,7 @@ const Members = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{member.documentType}</div>
-                      <div className="text-sm text-gray-500 truncate max-w-[120px]">
-                        {member.documentNo}
-                      </div>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border bg-blue-100 text-blue-800 border-blue-200">{member?.speciality || "others"}</span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(member.status)}`}>
@@ -699,21 +695,33 @@ const Members = () => {
 
                   {/* Document Information */}
                   <div className="mt-6 bg-gray-50 rounded-lg p-6">
-                    <h4 className="text-lg font-semibold text-gray-800 mb-4">Document Information</h4>
+                    <h4 className="text-lg font-semibold text-gray-800 mb-4">Information</h4>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-500 mb-1">Document Type</label>
-                        <p className="text-gray-900 font-medium">{selectedMember.documentType}</p>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">Speciality</label>
+                        <p className="text-gray-900 font-medium">{selectedMember?.speciality || "Others"}</p>
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-500 mb-1">Document Number</label>
-                        <p className="text-gray-900">{selectedMember.documentNo}</p>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">Qualification</label>
+                        <p className="text-gray-900">{selectedMember.qualification ? (
+                          <>
+                            {selectedMember.qualification?.map((q, index) => (
+                              <span key={index} className="inline-block bg-gray-100 px-2 py-1 rounded text-sm mr-2 mb-1">
+                                {q}
+                              </span>
+                            ))}
+                          </>
+                        ) : (
+                          <>
+                            <p>Other</p>
+                          </>
+                        )}</p>
                       </div>
                       
                       <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-500 mb-2">Document Image</label>
+                        <label className="block text-sm font-medium text-gray-500 mb-2">Qualification Image</label>
                         <a
                           href={selectedMember.documentImage}
                           target="_blank"

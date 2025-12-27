@@ -242,15 +242,11 @@ export default function BenefitsOfMembership() {
                   Join Odisha's premier surgical oncology society and unlock exclusive professional advantages
                 </p>
               </div>
-              
-              {/* Decorative elements */}
-              {/* <div className="absolute -bottom-6 left-10 w-24 h-24 border-6 border-white/30 rounded-2xl hidden lg:block"></div> */}
-              {/* <div className="absolute -top-6 right-10 w-20 h-20 border-6 border-r-0 border-white/30 rounded-2xl hidden lg:block"></div> */}
             </div>
           </div>
           
           {/* Wave Divider */}
-          <div className="absolute -bottom-15 left-0 right-0">
+          <div className="absolute -bottom-20 left-0 right-0">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
               <path fill="#ffffff" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
             </svg>
@@ -258,11 +254,7 @@ export default function BenefitsOfMembership() {
         </header>
 
         {/* Main Content Container */}
-        <div className="bg-white -mt-20 md:-mt-24 relative rounded-t-3xl shadow-2xl overflow-hidden">
-          {/* Decorative border elements */}
-          {/* <div className='absolute top-10 right-10 w-32 h-24 border-6 rounded-2xl border-white shadow-2xl hidden lg:block'></div> */}
-          {/* <div className='absolute bottom-10 left-10 w-28 h-20 border-6 border-r-0 rounded-2xl border-[#326EAC] hidden lg:block'></div> */}
-          
+        <div className="bg-white -mt-20 md:-mt-24 relative rounded-t-3xl shadow-2xl overflow-hidden">          
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
             
             {/* Introduction */}
