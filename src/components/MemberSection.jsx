@@ -41,7 +41,7 @@ const MemberSection = () => {
       president: {
         name: "Prof. Sushil Kumar Giri",
         role: "President",
-        photo: "https://img.freepik.com/premium-vector/person-icon_109161-4674.jpg",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767094287/Screenshot_2025-12-30_170056_ktmduj.png",
         department: "Odisha Society of Oncology",
         institution: "Bhubaneswar",
         tenure: "Jan 2024 - Dec 2025"

@@ -603,10 +603,10 @@ and patient-centred cancer care is accessible to every individual in Odisha.
                 <div className="relative z-10">
                   <FaQuoteLeft className="text-4xl text-white/30 mb-6 mx-auto" />
                   <h3 className="text-3xl font-bold text-white mb-4">
-                    Join Our Community of Surgical Oncology Professionals
+                    Join Our Community of Oncology Professionals
                   </h3>
                   <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-                    Become part of Odisha's premier surgical oncology society and contribute to advancing cancer care in our state.
+                    Become part of Odisha's premier oncology society and contribute to advancing cancer care in our state.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link

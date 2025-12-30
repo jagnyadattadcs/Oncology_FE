@@ -41,12 +41,12 @@ export const DataProvider = ({ children }) => {
         carouselRes?.data?.data?.map(item => item.imageUrl) || []
       );
 
-      setEvents(eventsRes?.data?.data || []);
+      setEvents(eventsRes?.data?.events || []);
       setMembers(memberRes?.data?.members || []);
       setCouncilmember(councilmemberRes?.data?.data || []);
       setGallery(galleryRes?.data?.data || []);
 
-      console.log(councilmemberRes?.data?.data);
+      // console.log(eventsRes?.data?.events);
     } catch (error) {
       console.error("Data fetch error:", error);
     } finally {

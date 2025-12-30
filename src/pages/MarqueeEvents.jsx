@@ -39,7 +39,7 @@ export default function MarqueeEvents() {
         <div className="flex animate-marquee whitespace-nowrap">
           {/* First set */}
           <div className="flex gap-6 items-center">
-            {events.map((ev) => (
+            {events.slice(0,5).map((ev) => (
               <Link
                 key={ev._id}
                 to={ev.imageUrl}
