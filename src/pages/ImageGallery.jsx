@@ -249,7 +249,7 @@ export default function ImageGallery() {
                   Image <span className="text-[#b5d3f1]">Gallery</span>
                 </h1>
                 <p className="text-lg text-white/90 max-w-2xl mx-auto">
-                  Browse photos from OSOO events, conferences, and activities
+                  Browse photos from OSO events, conferences, and activities
                 </p>
               </div>
               
@@ -288,7 +288,7 @@ export default function ImageGallery() {
                   <FaImages />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">OSOO Photo Gallery</h2>
+                  <h2 className="text-xl font-bold text-gray-800">OSO Photo Gallery</h2>
                   <p className="text-gray-600 text-sm">
                     Visual memories from our events
                   </p>
@@ -477,10 +477,10 @@ export default function ImageGallery() {
                 <div className="text-center md:text-left">
                   <div className="flex items-center gap-3 mb-3">
                     <FaCamera className="text-3xl" />
-                    <h3 className="text-xl font-bold">Have Photos from OSOO Events?</h3>
+                    <h3 className="text-xl font-bold">Have Photos from OSO Events?</h3>
                   </div>
                   <p className="text-white/90">
-                    Share your photos with the OSOO community. Upload your event pictures and help us build our gallery.
+                    Share your photos with the OSO community. Upload your event pictures and help us build our gallery.
                   </p>
                 </div>
                 <button className="px-6 py-3 bg-white text-green-600 rounded-lg hover:bg-gray-100 transition font-bold">

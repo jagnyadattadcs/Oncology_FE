@@ -23,7 +23,7 @@ const ChangePassword = () => {
 
   useEffect(() => {
     if (!member) {
-      navigate('/login');
+      navigate('/member/login');
     }
   }, [member, navigate]);
 

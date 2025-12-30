@@ -38,9 +38,9 @@ academic stature, enabling it to play a pivotal role in advancing cancer care in
           <Link to="/about-us" className='text-lg font-semibold p-2 sm:p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer'>Read more</Link>
         </div>
         <div className='w-1/2 flex flex-col items-center justify-center p-8 h-full z-1'>
-          {/* <img src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766749268/Firefly_20251226165350_rdsb3h.jpg" alt="about image" className='rounded-2xl h-full' /> */}
-          <img src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766734411/osoo_carousel/z1ghbnq0h3f2y7tpwi1h.jpg" alt="about image" className='rounded-tl-2xl rounded-tr-2xl' />
-          <img src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766734411/osoo_carousel/z1ghbnq0h3f2y7tpwi1h.jpg" alt="about image" className='rounded-bl-2xl rounded-br-2xl'/>
+          <img src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766749268/Firefly_20251226165350_rdsb3h.jpg" alt="about image" className='rounded-2xl h-full' />
+          {/* <img src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766734411/osoo_carousel/z1ghbnq0h3f2y7tpwi1h.jpg" alt="about image" className='rounded-tl-2xl rounded-tr-2xl' />
+          <img src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766734411/osoo_carousel/z1ghbnq0h3f2y7tpwi1h.jpg" alt="about image" className='rounded-bl-2xl rounded-br-2xl'/> */}
         </div>
         <div className='absolute top-0 right-0 w-2xl h-178 backdrop-blur-sm z-0'></div>
       </div>

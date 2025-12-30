@@ -169,7 +169,7 @@ const MemberLogin = () => {
 
             <div className="my-6 flex items-center">
               <div className="grow border-t border-gray-300"></div>
-              <span className="mx-4 text-sm text-gray-500">New to OSOO?</span>
+              <span className="mx-4 text-sm text-gray-500">New to OSO?</span>
               <div className="grow border-t border-gray-300"></div>
             </div>
 
@@ -185,14 +185,14 @@ const MemberLogin = () => {
             <p className="text-sm text-gray-600">
               Need help? Contact us at{' '}
               <a href="mailto:support@osoo.org" className="text-[#326EAC] hover:underline">
-                support@osoo.org
+                support@oso.org
               </a>
             </p>
           </div>
         </div>
 
         <div className="mt-8 bg-white rounded-2xl shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Why Join OSOO?</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">Why Join OSO?</h3>
           <ul className="space-y-2 text-gray-600">
             <li className="flex items-start">
               <span className="text-[#326EAC] mr-2">✓</span>

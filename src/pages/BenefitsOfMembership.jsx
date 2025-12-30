@@ -133,8 +133,8 @@ const membershipTypes = [
 
 const faqs = [
   {
-    question: "Who can become a member of OSOO?",
-    answer: "Any qualified surgical oncologist, practicing surgeon with oncology specialization, or oncology resident/fellow from recognized institutions can apply for membership. International members are also welcome."
+    question: "Who can become a member of OSO?",
+    answer: "Any qualified oncologist, practicing surgeon with oncology specialization, or oncology resident/fellow from recognized institutions can apply for membership. International members are also welcome."
   },
   {
     question: "What documents are required for registration?",
@@ -236,10 +236,10 @@ export default function BenefitsOfMembership() {
                   <span className="text-white text-sm font-medium">Membership Benefits</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                  Benefits of <span className="text-blue-200">OSOO</span> Membership
+                  Benefits of <span className="text-blue-200">OSO</span> Membership
                 </h1>
                 <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
-                  Join Odisha's premier surgical oncology society and unlock exclusive professional advantages
+                  Join Odisha's premier oncology society and unlock exclusive professional advantages
                 </p>
               </div>
             </div>
@@ -261,11 +261,11 @@ export default function BenefitsOfMembership() {
             <section className="mb-16 md:mb-20 text-center">
               <div className="max-w-4xl mx-auto">
                 <div className="inline-block px-6 py-2 bg-[#326EAC] text-white rounded-full mb-6">
-                  <h2 className="text-2xl md:text-3xl font-bold">Why Join OSOO?</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold">Why Join OSO?</h2>
                 </div>
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
                   Becoming a member of the Odisha Society of Oncology opens doors to unparalleled professional growth, 
-                  networking opportunities, and access to cutting-edge knowledge in surgical oncology.
+                  networking opportunities, and access to cutting-edge knowledge in oncology.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 mb-8">
                   <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full">
@@ -289,7 +289,7 @@ export default function BenefitsOfMembership() {
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold text-[#326EAC] mb-4">Exclusive Member Benefits</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Comprehensive advantages designed to enhance your professional journey in surgical oncology
+                  Comprehensive advantages designed to enhance your professional journey in oncology
                 </p>
               </div>
 
@@ -389,7 +389,7 @@ export default function BenefitsOfMembership() {
             {/* Registration Process */}
             <section className="mb-16 md:mb-20">
               <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold text-[#326EAC] mb-4">How to Join OSOO</h3>
+                <h3 className="text-3xl font-bold text-[#326EAC] mb-4">How to Join OSO</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">
                   Simple step-by-step process to become a member
                 </p>
@@ -441,7 +441,7 @@ export default function BenefitsOfMembership() {
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold text-[#326EAC] mb-4">What Our Members Say</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Hear from surgical oncologists who have benefited from OSOO membership
+                  Hear from oncologists who have benefited from OSO membership
                 </p>
               </div>
 
@@ -449,9 +449,9 @@ export default function BenefitsOfMembership() {
                 {[
                   {
                     name: "Dr. Priyanka Das",
-                    role: "Senior Surgical Oncologist",
+                    role: "Senior Oncologist",
                     hospital: "Apollo Hospitals, Bhubaneswar",
-                    quote: "OSOO membership transformed my career. The networking opportunities and access to latest research have been invaluable.",
+                    quote: "OSO membership transformed my career. The networking opportunities and access to latest research have been invaluable.",
                     rating: 5
                   },
                   {
@@ -496,7 +496,7 @@ export default function BenefitsOfMembership() {
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold text-[#326EAC] mb-4">Frequently Asked Questions</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Find answers to common questions about OSOO membership
+                  Find answers to common questions about OSO membership
                 </p>
               </div>
 
@@ -543,10 +543,10 @@ export default function BenefitsOfMembership() {
                   </div>
                   
                   <h3 className="text-3xl font-bold text-white mb-4">
-                    Ready to Advance Your Career in Surgical Oncology?
+                    Ready to Advance Your Career in Oncology?
                   </h3>
                   <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-                    Join 500+ surgical oncologists who have already benefited from OSOO membership. 
+                    Join 500+ surgical oncologists who have already benefited from OSO membership. 
                     Start your journey towards professional excellence today.
                   </p>
                   
@@ -561,14 +561,14 @@ export default function BenefitsOfMembership() {
                       to="/about-us"
                       className="inline-flex items-center justify-center gap-3 px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-all duration-300"
                     >
-                      <FaFileAlt /> Learn More About OSOO
+                      <FaFileAlt /> Learn More About OSO
                     </Link>
                   </div>
                   
                   <p className="text-white/70 mt-6 text-sm">
                     Need assistance? Contact our membership team at{' '}
-                    <a href="mailto:membership@osoo.org" className="text-white underline hover:no-underline">
-                      membership@osoo.org
+                    <a href="mailto:membership@oso.org" className="text-white underline hover:no-underline">
+                      membership@oso.org
                     </a>
                   </p>
                 </div>

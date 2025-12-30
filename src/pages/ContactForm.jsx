@@ -125,7 +125,7 @@ const ContactForm = () => {
             Get In Touch
           </h1>
           <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed px-4">
-            Have questions or want to learn more about OSOO? We'd love to hear from you. 
+            Have questions or want to learn more about OSO? We'd love to hear from you. 
             Send us a message and we'll respond as soon as possible.
           </p>
         </motion.div>
@@ -146,9 +146,9 @@ const ContactForm = () => {
               
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-2 text-lg">Odisha Surgical Oncology Society</h4>
+                  <h4 className="font-semibold text-gray-800 mb-2 text-lg">Odisha Society Of Oncology</h4>
                   <p className="text-gray-600">
-                    Committed to advancing surgical oncology practices and patient care across Odisha.
+                    Committed to advancing oncology practices and patient care across Odisha.
                   </p>
                 </div>
                 
@@ -159,7 +159,7 @@ const ContactForm = () => {
                     </div>
                     <div>
                       <p className="font-medium text-gray-800">Email</p>
-                      <p className="text-gray-600 text-sm">contact@osoo.org</p>
+                      <p className="text-gray-600 text-sm">contact@oso.org</p>
                     </div>
                   </div>
                   
@@ -206,7 +206,7 @@ const ContactForm = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">Message Sent Successfully!</h3>
                   <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                    Thank you for contacting OSOO. We have received your message and will get back to you soon.
+                    Thank you for contacting OSO. We have received your message and will get back to you soon.
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
@@ -388,7 +388,7 @@ const ContactForm = () => {
             </div>
             <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-[#326EAC] transition-colors">
               <div className="text-2xl font-bold text-[#326EAC] mb-2">Personalized</div>
-              <p className="text-gray-600">Reply from OSOO Team</p>
+              <p className="text-gray-600">Reply from OSO Team</p>
             </div>
             <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-[#326EAC] transition-colors">
               <div className="text-2xl font-bold text-[#326EAC] mb-2">Confidential</div>

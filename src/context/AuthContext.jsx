@@ -103,6 +103,7 @@ export const AuthProvider = ({ children }) => {
     setStep,
     adminLogin,
     verifyAdminOtp,
+    setAdmin,
     logout
   };
 

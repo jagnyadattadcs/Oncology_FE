@@ -18,7 +18,7 @@ const Home = () => {
       <EventSection />
       <MemberSection/>
       <GallerySection/>
-      <WhyJoinSection/>
+      {/* <WhyJoinSection/> */}
     </>
   )
 }

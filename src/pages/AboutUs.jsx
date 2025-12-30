@@ -285,10 +285,10 @@ export default function AboutUs() {
                   <span className="text-white text-sm font-medium">About Our Society</span>
                 </div>
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                  About <span className="text-blue-200">OSOO</span>
+                  About <span className="text-blue-200">OSO</span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-                  Committed to excellence in surgical oncology since 2008
+                  Committed to excellence in oncology since 2008
                 </p>
               </div>
               
@@ -372,8 +372,8 @@ to patients across the state.
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Prsident Card */}
                 <div className="bg-linear-to-br from-blue-50 to-white rounded-2xl shadow-xl p-8 border border-blue-100 transform hover:-translate-y-2 transition-transform duration-300">
-                  <div className="flex items-start gap-6">
-                    <div>
+                  <div className="flex flex-col items-start gap-6">
+                    <div className="flex gap-5">
                       <div className="w-30 h-30 rounded-lg overflow-hidden">
                         <img
                           src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766812775/Screenshot_2025-12-27_104908_ntbpx4.png"
@@ -381,13 +381,15 @@ to patients across the state.
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <h3 className="text-2xl font-bold text-[#326EAC] mt-4">President</h3>
-                      <p className="font-semibold">2026 - 2027</p>
+                      <div>
+                        <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Mission by</h2>
+                        <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Surendra Nath Senapati</h2>
+                        <h3 className="text-2xl font-bold text-[#326EAC] mt-2">President</h3>
+                        <p className="font-semibold">2026 - 2027</p>
+                      </div>
                     </div>
                     <div className="flex-1">
-                      <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Mission by</h2>
-                      <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Surendra Nath Senapati</h2>
-                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-[#326EAC]">
+                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-r-4 border-[#326EAC]">
                         <p className="text-gray-700 leading-relaxed text-justify">
                           To promote excellence in the practice of surgical oncology through continuing medical education, research, and professional development. We strive to create a collaborative platform where surgical oncologists can share knowledge and ultimately improve patient care across Odisha.
                         </p>
@@ -398,24 +400,50 @@ to patients across the state.
 
                 {/* Secretary Card */}
                 <div className="bg-linear-to-br from-blue-50 to-white rounded-2xl shadow-xl p-8 border border-blue-100 transform hover:-translate-y-2 transition-transform duration-300">
-                  <div className="flex items-start gap-6">
-                    <div>
+                  <div className="flex flex-col items-start gap-6">
+                    <div className="flex gap-5">
                       <div className="w-30 h-30 rounded-lg overflow-hidden">
                         <img
-                          src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1766813103/Screenshot_2025-12-27_105446_l0pcfj.png"
+                          src="https://res.cloudinary.com/dxvovx7s2/image/upload/v1767007385/Screenshot_2025-12-29_165221_dtdg6k.png"
                           alt="secretary"
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <h3 className="text-2xl font-bold text-[#326EAC] mt-4">Secretary</h3>
-                      <p className="font-semibold">2026 - 2027</p>
+                      <div>
+                        <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Vision by</h2>
+                        <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Sunil Agrawala</h2>
+                        <h3 className="text-2xl font-bold text-[#326EAC] mt-2">Secretary</h3>
+                        <p className="font-semibold">2026 - 2027</p>
+                      </div>
                     </div>
                     <div className="flex-1">
-                      <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Vision by</h2>
-                      <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Sunil Agrawala</h2>
-                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-[#326EAC]">
+                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-r-4 border-[#326EAC]">
                         <p className="text-gray-700 leading-relaxed text-justify">
-                          To promote excellence in the practice of surgical oncology through continuing medical education, research, and professional development. We strive to create a collaborative platform where surgical oncologists can share knowledge and ultimately improve patient care across Odisha.
+                          It is both an honour and a responsibility to serve as the Secretary of the Odisha Society of Oncology
+(OSO), a premier and inclusive professional body representing oncologists from surgical, medical,
+radiation, palliative care, nuclear medicine, and allied specialties across the state of Odisha. <br />
+
+OSO stands at an important juncture in its journey. With more than 250 dedicated members working
+across academic institutions, cancer centres, and district hospitals, our strength lies in our diversity,
+collective experience, and shared commitment to improving cancer care. In the coming years, our
+focus will be on strengthening multidisciplinary collaboration, enhancing academic engagement,
+encouraging research, and embracing digital innovation to better connect our members across the
+state. <br />
+
+As Secretary, my vision is to make OSO a more vibrant, accessible, and academically dynamic
+platform—where senior clinicians, young oncologists, and trainees actively participate in knowledge
+exchange, tumour boards, conferences, and skill-building initiatives. Special emphasis will be placed
+on supporting young oncologists, promoting multicentric research, developing state-specific clinical
+guidelines, and expanding outreach activities aimed at cancer awareness and early detection.
+<br />
+Transparency, inclusivity, and member engagement will remain the guiding principles of our
+administration. Through regular communication, structured academic programs, and collaborative
+initiatives, we aim to elevate OSO to the next level while staying rooted in our core values of
+professionalism, ethics, and compassion. <br />
+
+I invite every OSO member to actively contribute ideas, participate in programs, and work together
+in strengthening our society. Together, let us shape a future where high-quality, evidence-based,
+and patient-centred cancer care is accessible to every individual in Odisha.
                         </p>
                       </div>
                     </div>

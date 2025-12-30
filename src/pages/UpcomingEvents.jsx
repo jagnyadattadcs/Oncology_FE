@@ -20,21 +20,34 @@ import {
   FaVideo,
   FaImages,
   FaCheckCircle,
-  FaGraduationCap
+  FaGraduationCap,
+  FaTag,
+  FaStar,
+  FaCertificate
 } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// Event Categories
+// Event Categories (aligned with backend)
 const eventCategories = [
-  { id: "all", name: "All Events" },
-  { id: "conference", name: "Conferences" },
-  { id: "workshop", name: "Workshops" },
-  { id: "seminar", name: "Seminars" },
-  { id: "webinar", name: "Webinars" },
-  { id: "symposium", name: "Symposiums" },
-  { id: "training", name: "Training Programs" }
+  { id: "all", name: "All Events", value: "all" },
+  { id: "cancer_celebration", name: "Cancer Celebrations", value: "cancer_celebration" },
+  { id: "conference_symposium", name: "Conferences & Symposiums", value: "conference_symposium" },
+  { id: "workshop_training", name: "Workshops & Training", value: "workshop_training" },
+  { id: "awareness_campaign", name: "Awareness Campaigns", value: "awareness_campaign" },
+  { id: "fundraising", name: "Fundraising Events", value: "fundraising" },
+  { id: "other", name: "Other Events", value: "other" }
 ];
+
+// Category labels for display
+const categoryLabels = {
+  'cancer_celebration': 'Cancer Celebrations',
+  'conference_symposium': 'Conferences & Symposiums', 
+  'workshop_training': 'Workshops & Training',
+  'awareness_campaign': 'Awareness Campaigns',
+  'fundraising': 'Fundraising Events',
+  'other': 'Other Events'
+};
 
 // Format date function
 const formatDate = (dateString) => {
@@ -49,14 +62,26 @@ const formatDate = (dateString) => {
   });
 };
 
+// Format short date
+const formatShortDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+};
+
 // Get relative time
 const getRelativeTime = (dateString) => {
   const now = new Date();
   const eventDate = new Date(dateString);
-  const diffTime = Math.abs(eventDate - now);
+  const diffTime = eventDate - now;
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   
-  if (diffDays === 0) {
+  if (diffDays < 0) {
+    return "Past";
+  } else if (diffDays === 0) {
     return "Today";
   } else if (diffDays === 1) {
     return "Tomorrow";
@@ -69,6 +94,14 @@ const getRelativeTime = (dateString) => {
   return null;
 };
 
+// Get category display name
+const getCategoryDisplay = (category) => {
+  return categoryLabels[category] || category || 'General Event';
+};
+
+// Default image for events
+const DEFAULT_EVENT_IMAGE = "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=60&fit=crop";
+
 export default function UpcomingEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -78,9 +111,16 @@ export default function UpcomingEvents() {
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [stats, setStats] = useState({
+    total: 0,
+    upcoming: 0,
+    past: 0,
+    completed: 0,
+    featured: 0
+  });
   const eventsPerPage = 6;
 
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
   // Fetch events from backend
   const fetchEvents = async () => {
@@ -90,22 +130,43 @@ export default function UpcomingEvents() {
       
       if (response.data.success) {
         // Sort events by date (closest first)
-        const sortedEvents = response.data.data.sort((a, b) => 
+        const sortedEvents = (response.data.events || []).sort((a, b) => 
           new Date(a.date) - new Date(b.date)
         );
         setEvents(sortedEvents);
         setFilteredEvents(sortedEvents);
+        
+        // Update stats if available
+        if (response.data.stats) {
+          setStats(response.data.stats);
+        }
       }
     } catch (error) {
       console.error("Error fetching events:", error);
       toast.error("Failed to load events");
+      // Fallback to empty events
+      setEvents([]);
+      setFilteredEvents([]);
     } finally {
       setLoading(false);
     }
   };
 
+  // Fetch event stats
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/events/stats`);
+      if (response.data.success) {
+        setStats(response.data.stats);
+      }
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    }
+  };
+
   useEffect(() => {
     fetchEvents();
+    fetchStats();
   }, []);
 
   // Filter events based on search and category
@@ -114,20 +175,19 @@ export default function UpcomingEvents() {
 
     // Filter by search term
     if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
       result = result.filter(event =>
-        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.venue.toLowerCase().includes(searchTerm.toLowerCase())
+        event.title?.toLowerCase().includes(searchLower) ||
+        event.description?.toLowerCase().includes(searchLower) ||
+        event.venue?.toLowerCase().includes(searchLower) ||
+        event.tags?.some(tag => tag.toLowerCase().includes(searchLower)) ||
+        getCategoryDisplay(event.category).toLowerCase().includes(searchLower)
       );
     }
 
-    // Filter by category (you might need to add category field to your event model)
+    // Filter by category
     if (selectedCategory !== "all") {
-      result = result.filter(event => {
-        // This assumes your event model has a category field
-        // If not, you might need to infer from title or add a category field
-        return event.category === selectedCategory;
-      });
+      result = result.filter(event => event.category === selectedCategory);
     }
 
     setFilteredEvents(result);
@@ -198,15 +258,18 @@ export default function UpcomingEvents() {
 
   // Share event
   const handleShareEvent = (event) => {
+    const eventUrl = `${window.location.origin}/events/${event._id}`;
+    const shareText = `Check out this event: ${event.title} on ${formatShortDate(event.date)} at ${event.venue}`;
+    
     if (navigator.share) {
       navigator.share({
         title: event.title,
-        text: `Check out this event: ${event.title}`,
-        url: window.location.href,
+        text: shareText,
+        url: eventUrl,
       });
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      toast.success("Event link copied to clipboard!");
+      navigator.clipboard.writeText(`${shareText}\n${eventUrl}`);
+      toast.success("Event details copied to clipboard!");
     }
   };
 
@@ -216,7 +279,13 @@ export default function UpcomingEvents() {
     const index = bookmarks.findIndex(b => b._id === event._id);
     
     if (index === -1) {
-      bookmarks.push({ _id: event._id, title: event.title, date: event.date });
+      bookmarks.push({ 
+        _id: event._id, 
+        title: event.title, 
+        date: event.date,
+        category: event.category,
+        venue: event.venue 
+      });
       localStorage.setItem('osoo_event_bookmarks', JSON.stringify(bookmarks));
       toast.success("Event bookmarked!");
     } else {
@@ -225,6 +294,29 @@ export default function UpcomingEvents() {
       toast.info("Event removed from bookmarks");
     }
   };
+
+  // Add to calendar
+  const handleAddToCalendar = (event) => {
+    const startDate = new Date(event.date);
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours later
+    
+    const calendarEvent = {
+      title: event.title,
+      description: event.description,
+      location: event.venue,
+      startTime: startDate,
+      endTime: endDate
+    };
+    
+    // Create .ics file or use Google Calendar link
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${startDate.toISOString().replace(/-|:|\.\d+/g, '')}/${endDate.toISOString().replace(/-|:|\.\d+/g, '')}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.venue)}`;
+    
+    window.open(googleCalendarUrl, '_blank');
+    toast.success("Opening Google Calendar...");
+  };
+
+  // Get featured events count
+  const featuredEventsCount = events.filter(e => e.isFeatured).length;
 
   return (
     <div className="relative min-h-screen bg-gray-50">
@@ -246,7 +338,7 @@ export default function UpcomingEvents() {
           <div
             className="h-60 md:h-80 lg:h-120 bg-center bg-cover relative"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&q=60&fit=crop')",
+              backgroundImage: `url(${DEFAULT_EVENT_IMAGE})`,
             }}
           >
             {/* Gradient Overlay */}
@@ -262,15 +354,15 @@ export default function UpcomingEvents() {
                   Forthcoming <span className="text-blue-200">Events</span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
-                  Join surgical oncology conferences, workshops, and seminars across Odisha
+                  Join oncology conferences, workshops, and seminars across Odisha
                 </p>
               </div>
               
               {/* Stats */}
               <div className="flex flex-wrap justify-center gap-6 mt-8">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-white mb-1">{events.length}</div>
-                  <div className="text-sm text-white/80">Total Events</div>
+                  <div className="text-3xl font-bold text-white mb-1">{stats.upcoming || events.length}</div>
+                  <div className="text-sm text-white/80">Upcoming Events</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-white mb-1">
@@ -279,10 +371,14 @@ export default function UpcomingEvents() {
                   <div className="text-sm text-white/80">Next 7 Days</div>
                 </div>
                 <div className="text-center">
+                  <div className="text-3xl font-bold text-white mb-1">{featuredEventsCount}</div>
+                  <div className="text-sm text-white/80">Featured Events</div>
+                </div>
+                <div className="text-center">
                   <div className="text-3xl font-bold text-white mb-1">
-                    {events.filter(e => new Date(e.date) < new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).length}
+                    {Object.keys(categoryLabels).length}
                   </div>
-                  <div className="text-sm text-white/80">This Month</div>
+                  <div className="text-sm text-white/80">Categories</div>
                 </div>
               </div>
               
@@ -318,7 +414,7 @@ export default function UpcomingEvents() {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition"
-                        placeholder="Search events by title, venue, or description..."
+                        placeholder="Search events by title, venue, description, or tags..."
                       />
                     </div>
                   </div>
@@ -335,7 +431,7 @@ export default function UpcomingEvents() {
                         className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition appearance-none"
                       >
                         {eventCategories.map(category => (
-                          <option key={category.id} value={category.id}>
+                          <option key={category.id} value={category.value}>
                             {category.name}
                           </option>
                         ))}
@@ -349,33 +445,32 @@ export default function UpcomingEvents() {
                   <div>
                     <p className="text-gray-600">
                       Showing <span className="font-bold">{filteredEvents.length}</span> of{" "}
-                      <span className="font-bold">{events.length}</span> events
+                      <span className="font-bold">{events.length}</span> upcoming events
+                      {selectedCategory !== "all" && (
+                        <span className="text-gray-500 ml-2">
+                          in {getCategoryDisplay(selectedCategory)}
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-4">
                     <button
                       onClick={fetchEvents}
-                      className="flex items-center gap-2 text-sm text-[#326EAC] hover:text-blue-700"
+                      className="flex items-center gap-2 text-sm text-[#326EAC] hover:text-blue-700 hover:bg-blue-50 px-3 py-1 rounded-lg transition"
                     >
-                      <FaRegCalendarCheck /> Refresh Events
+                      <FaRegCalendarCheck /> Refresh
                     </button>
                     <Link
                       to="/events/past-events"
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#326EAC]"
+                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#326EAC] hover:bg-gray-50 px-3 py-1 rounded-lg transition"
                     >
                       View Past Events <FaChevronRight className="text-xs" />
                     </Link>
                     <Link
-                      to="/events/event-videos"
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#326EAC]"
+                      to="/events/featured"
+                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#326EAC] hover:bg-gray-50 px-3 py-1 rounded-lg transition"
                     >
-                      <FaVideo /> Event Videos
-                    </Link>
-                    <Link
-                      to="/events/gallery"
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#326EAC]"
-                    >
-                      <FaImages /> Image Gallery
+                      <FaStar /> Featured Events
                     </Link>
                   </div>
                 </div>
@@ -395,7 +490,7 @@ export default function UpcomingEvents() {
                   <p className="text-gray-500">
                     {searchTerm || selectedCategory !== "all" 
                       ? "Try changing your search criteria" 
-                      : "No forthcoming events scheduled yet"}
+                      : "No upcoming events scheduled yet"}
                   </p>
                   <button
                     onClick={() => {
@@ -414,19 +509,28 @@ export default function UpcomingEvents() {
                     {currentEvents.map((event) => {
                       const relativeTime = getRelativeTime(event.date);
                       const isSoon = relativeTime === "Today" || relativeTime === "Tomorrow";
+                      const isFeatured = event.isFeatured;
                       
                       return (
                         <div
                           key={event._id}
-                          className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl hover:border-[#326EAC]/30 transition-all duration-300 group"
+                          className={`bg-white rounded-2xl shadow-lg overflow-hidden border hover:shadow-xl transition-all duration-300 group ${
+                            isFeatured 
+                              ? 'border-pink-300 ring-2 ring-pink-100' 
+                              : 'border-gray-100 hover:border-[#326EAC]/30'
+                          }`}
                         >
                           {/* Event Image */}
                           <div className="relative h-56 overflow-hidden">
                             <img
-                              src={event.imageUrl || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=60"}
+                              src={event.imageUrl || DEFAULT_EVENT_IMAGE}
                               alt={event.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              onError={(e) => {
+                                e.target.src = DEFAULT_EVENT_IMAGE;
+                              }}
                             />
+                            
                             {/* Event Date Badge */}
                             <div className="absolute top-4 left-4">
                               <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 text-center shadow-lg">
@@ -438,9 +542,26 @@ export default function UpcomingEvents() {
                                 </div>
                               </div>
                             </div>
+                            
+                            {/* Category Badge */}
+                            <div className="absolute bottom-4 left-4">
+                              <span className="bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium">
+                                {getCategoryDisplay(event.category)}
+                              </span>
+                            </div>
+                            
+                            {/* Featured Badge */}
+                            {isFeatured && (
+                              <div className="absolute top-4 right-4">
+                                <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                                  <FaStar className="text-xs" /> Featured
+                                </span>
+                              </div>
+                            )}
+                            
                             {/* Time Badge */}
                             {relativeTime && (
-                              <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-medium ${
+                              <div className={`absolute bottom-4 right-4 px-3 py-1 rounded-full text-sm font-medium ${
                                 isSoon 
                                   ? 'bg-red-500 text-white' 
                                   : 'bg-blue-100 text-[#326EAC]'
@@ -470,15 +591,27 @@ export default function UpcomingEvents() {
                                   <span className="text-sm">{event.venue}</span>
                                 </div>
                                 
-                                {/* Status */}
-                                <div className="flex items-center gap-2">
-                                  <FaClock className="text-[#326EAC]" />
-                                  <span className={`text-sm font-medium ${
-                                    event.isCompleted ? 'text-red-600' : 'text-green-600'
-                                  }`}>
-                                    {event.isCompleted ? "Completed" : "Forthcoming"}
-                                  </span>
-                                </div>
+                                {/* Tags */}
+                                {event.tags && event.tags.length > 0 && (
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <FaTag className="text-[#326EAC]" />
+                                    <div className="flex flex-wrap gap-1">
+                                      {event.tags.slice(0, 3).map((tag, index) => (
+                                        <span 
+                                          key={index}
+                                          className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs"
+                                        >
+                                          {tag}
+                                        </span>
+                                      ))}
+                                      {event.tags.length > 3 && (
+                                        <span className="px-2 py-1 bg-gray-100 text-gray-400 rounded text-xs">
+                                          +{event.tags.length - 3}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                             </div>
 
@@ -571,11 +704,14 @@ export default function UpcomingEvents() {
                   Never Miss an Important Event
                 </h3>
                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                  Download our event calendar and stay updated with all forthcoming surgical oncology events in Odisha.
+                  Download our event calendar and stay updated with all forthcoming oncology events in Odisha.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#326EAC] text-white rounded-lg hover:bg-blue-700 transition font-medium">
-                    <FaDownload /> Download Calendar
+                  <button 
+                    onClick={() => handleAddToCalendar(events[0] || {})}
+                    className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#326EAC] text-white rounded-lg hover:bg-blue-700 transition font-medium"
+                  >
+                    <FaDownload /> Add to Calendar
                   </button>
                   <button className="inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#326EAC] text-[#326EAC] rounded-lg hover:bg-blue-50 transition font-medium">
                     Subscribe to Newsletter
@@ -586,33 +722,61 @@ export default function UpcomingEvents() {
 
             {/* Navigation Links */}
             <section className="mb-16">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Link
-                  to="/events/event-videos"
-                  className="bg-linear-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white hover:shadow-xl transition-all duration-300 group"
+                  to="/events/past-events"
+                  className="bg-linear-to-r from-blue-600 to-blue-700 rounded-2xl p-6 text-white hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                      <FaVideo className="text-2xl" />
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <FaRegCalendarCheck className="text-xl" />
                     </div>
-                    <FaChevronRight className="group-hover:translate-x-2 transition-transform" />
+                    <FaChevronRight className="text-sm group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Event Videos</h3>
-                  <p className="text-white/80">Watch recordings of past events and conferences</p>
+                  <h3 className="text-lg font-bold mb-2">Past Events</h3>
+                  <p className="text-white/80 text-sm">Browse completed events and conferences</p>
+                </Link>
+
+                <Link
+                  to="/events/featured"
+                  className="bg-linear-to-r from-pink-600 to-pink-700 rounded-2xl p-6 text-white hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <FaStar className="text-xl" />
+                    </div>
+                    <FaChevronRight className="text-sm group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Featured Events</h3>
+                  <p className="text-white/80 text-sm">Highlighted conferences and workshops</p>
+                </Link>
+
+                <Link
+                  to="/events/videos"
+                  className="bg-linear-to-r from-purple-600 to-purple-500 rounded-2xl p-6 text-white hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <FaVideo className="text-xl" />
+                    </div>
+                    <FaChevronRight className="text-sm group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Event Videos</h3>
+                  <p className="text-white/80 text-sm">Watch recordings of past events</p>
                 </Link>
 
                 <Link
                   to="/events/gallery"
-                  className="bg-linear-to-r from-green-600 to-green-700 rounded-2xl p-8 text-white hover:shadow-xl transition-all duration-300 group"
+                  className="bg-linear-to-r from-green-600 to-green-700 rounded-2xl p-6 text-white hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                      <FaImages className="text-2xl" />
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <FaImages className="text-xl" />
                     </div>
-                    <FaChevronRight className="group-hover:translate-x-2 transition-transform" />
+                    <FaChevronRight className="text-sm group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Image Gallery</h3>
-                  <p className="text-white/80">Browse photos from OSOO events and activities</p>
+                  <h3 className="text-lg font-bold mb-2">Image Gallery</h3>
+                  <p className="text-white/80 text-sm">Photos from OSO events</p>
                 </Link>
               </div>
             </section>
@@ -627,7 +791,7 @@ export default function UpcomingEvents() {
                 <div className="relative z-10 text-center">
                   <div className="flex justify-center mb-6">
                     <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                      <FaUsers className="text-white text-3xl" />
+                      <FaCertificate className="text-white text-3xl" />
                     </div>
                   </div>
                   
@@ -636,7 +800,7 @@ export default function UpcomingEvents() {
                   </h3>
                   <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
                     Collaborate with Odisha Society of Oncology to organize conferences, workshops, 
-                    or training programs for surgical oncologists.
+                    or training programs for oncologists.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -666,6 +830,16 @@ export default function UpcomingEvents() {
             <div className="sticky top-0 bg-white p-6 border-b border-gray-200 z-1">
               <div className="flex justify-between items-start">
                 <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    {selectedEvent.isFeatured && (
+                      <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-medium flex items-center gap-1">
+                        <FaStar className="text-xs" /> Featured
+                      </span>
+                    )}
+                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                      {getCategoryDisplay(selectedEvent.category)}
+                    </span>
+                  </div>
                   <h3 className="text-2xl font-bold text-[#326EAC]">{selectedEvent.title}</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <FaCalendarAlt className="text-gray-400 text-sm" />
@@ -686,11 +860,11 @@ export default function UpcomingEvents() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column - Event Image */}
                 <div className="lg:col-span-2">
-                  <div className="mb-6">
+                  <div className="mb-6 rounded-xl overflow-hidden">
                     <img
-                      src={selectedEvent.imageUrl || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=60"}
+                      src={selectedEvent.imageUrl || DEFAULT_EVENT_IMAGE}
                       alt={selectedEvent.title}
-                      className="w-full h-64 object-cover rounded-xl shadow-lg"
+                      className="w-full h-72 object-cover"
                     />
                   </div>
 
@@ -704,6 +878,23 @@ export default function UpcomingEvents() {
                     </div>
                   </div>
 
+                  {/* Tags */}
+                  {selectedEvent.tags && selectedEvent.tags.length > 0 && (
+                    <div className="mb-8">
+                      <h4 className="text-xl font-bold text-gray-800 mb-4">Tags</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedEvent.tags.map((tag, index) => (
+                          <span
+                            key={index}
+                            className="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Additional Information */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-blue-50 p-6 rounded-xl">
@@ -715,11 +906,11 @@ export default function UpcomingEvents() {
                         </li>
                         <li className="flex items-center gap-2">
                           <FaCheckCircle className="text-green-500" />
-                          <span>Residents & Fellows</span>
+                          <span>Medical Oncologists</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <FaCheckCircle className="text-green-500" />
-                          <span>Medical Students</span>
+                          <span>Residents & Fellows</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <FaCheckCircle className="text-green-500" />
@@ -774,9 +965,6 @@ export default function UpcomingEvents() {
                         <div>
                           <p className="text-sm text-gray-500">Venue</p>
                           <p className="font-medium">{selectedEvent.venue}</p>
-                          <button className="text-sm text-[#326EAC] hover:underline mt-1">
-                            View on Map
-                          </button>
                         </div>
                       </div>
 
@@ -785,8 +973,8 @@ export default function UpcomingEvents() {
                           <FaUsers />
                         </div>
                         <div>
-                          <p className="text-sm text-gray-500">Expected Attendance</p>
-                          <p className="font-medium">100-150 Participants</p>
+                          <p className="text-sm text-gray-500">Category</p>
+                          <p className="font-medium">{getCategoryDisplay(selectedEvent.category)}</p>
                         </div>
                       </div>
 
@@ -796,10 +984,8 @@ export default function UpcomingEvents() {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500">Status</p>
-                          <p className={`font-medium ${
-                            selectedEvent.isCompleted ? 'text-red-600' : 'text-green-600'
-                          }`}>
-                            {selectedEvent.isCompleted ? "Completed" : "Forthcoming"}
+                          <p className="font-medium text-green-600">
+                            {new Date(selectedEvent.date) < new Date() ? "Completed" : "Forthcoming"}
                           </p>
                         </div>
                       </div>
@@ -807,10 +993,10 @@ export default function UpcomingEvents() {
 
                     {/* Registration */}
                     <div className="mb-8">
-                      <h5 className="font-bold text-gray-800 mb-4">Registration Fees</h5>
+                      <h5 className="font-bold text-gray-800 mb-4">Registration Information</h5>
                       <div className="space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-600">OSOO Members</span>
+                          <span className="text-gray-600">OSO Members</span>
                           <span className="font-bold text-[#326EAC]">₹ 1,000</span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -833,7 +1019,7 @@ export default function UpcomingEvents() {
                         Register Now
                       </button>
                       <button
-                        onClick={() => handleBookmark(selectedEvent)}
+                        onClick={() => handleAddToCalendar(selectedEvent)}
                         className="w-full py-3 px-4 border border-[#326EAC] text-[#326EAC] rounded-lg hover:bg-blue-50 transition font-medium"
                       >
                         Add to Calendar
@@ -844,6 +1030,14 @@ export default function UpcomingEvents() {
                       >
                         Share Event
                       </button>
+                      <button
+                        onClick={() => handleBookmark(selectedEvent)}
+                        className="w-full py-3 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium"
+                      >
+                        {localStorage.getItem('osoo_event_bookmarks')?.includes(selectedEvent._id) 
+                          ? 'Remove Bookmark' 
+                          : 'Bookmark Event'}
+                      </button>
                     </div>
 
                     {/* Contact Info */}
@@ -853,7 +1047,7 @@ export default function UpcomingEvents() {
                         href="mailto:events@osoo.org"
                         className="text-[#326EAC] hover:underline text-sm font-medium"
                       >
-                        events@osoo.org
+                        events@oso.org
                       </a>
                     </div>
                   </div>

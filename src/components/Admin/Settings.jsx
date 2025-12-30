@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Settings = () => {
-    const { admin, updateAdmin } = useAuth();
+    const { admin, setAdmin } = useAuth();
     const [loading, setLoading] = useState(false);
     const [profileLoading, setProfileLoading] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -73,7 +73,7 @@ const Settings = () => {
                 });
 
                 if (response.data.success) {
-                    updateAdmin(response.data.data);
+                    setAdmin(response?.data?.data);
                 }
             } catch (error) {
                 console.error('Error fetching admin profile:', error);
@@ -84,7 +84,7 @@ const Settings = () => {
         };
 
         fetchAdminProfile();
-    }, [updateAdmin]);
+    }, [setAdmin]);
 
     // Handle profile form changes
     const handleProfileChange = (e) => {

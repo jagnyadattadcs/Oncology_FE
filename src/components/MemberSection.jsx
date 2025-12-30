@@ -30,7 +30,7 @@ const MemberSection = () => {
       secretary: {
         name: "Prof. Sunil Agrawala",
         role: "Secretary",
-        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1766813103/Screenshot_2025-12-27_105446_l0pcfj.png",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767007385/Screenshot_2025-12-29_165221_dtdg6k.png",
         department: "Odisha Society of Oncology",
         institution: "Bhubaneswar",
         tenure: "Jan 2026 - Present"

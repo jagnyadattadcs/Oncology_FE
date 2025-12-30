@@ -74,11 +74,11 @@ const MemberRegister = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Size validation (5MB)
-    if (file.size > 5 * 1024 * 1024) {
+    // Size validation (10MB)
+    if (file.size > 10 * 1024 * 1024) {
       setErrors(prev => ({
         ...prev,
-        documentImage: 'File size must be less than 5MB'
+        documentImage: 'File size must be less than 10MB'
       }));
       return;
     }
@@ -118,10 +118,6 @@ const MemberRegister = () => {
       newErrors.phone = 'Phone number is required';
     } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
       newErrors.phone = 'Please enter a valid 10-digit phone number';
-    }
-
-    if (!formData.documentNo.trim()) {
-      newErrors.documentNo = 'Document number is required';
     }
 
     if (!documentImage) {
@@ -201,8 +197,8 @@ const MemberRegister = () => {
                 <FaHospitalSymbol className="text-3xl text-white" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-white">Become an OSOO Member</h2>
-            <p className="text-white/80 mt-1">Join our community of surgical oncologists</p>
+            <h2 className="text-2xl font-bold text-white">Become an OSO Member</h2>
+            <p className="text-white/80 mt-1">Join our community of oncologists</p>
           </div>
 
           <div className="p-6 sm:p-8">
@@ -413,7 +409,7 @@ const MemberRegister = () => {
                     <a href="/privacy" className="text-[#326EAC] hover:underline">
                       Privacy Policy
                     </a>{' '}
-                    of OSOO
+                    of OSO
                   </label>
                 </div>
                 {errors.agreeWithTerms && (

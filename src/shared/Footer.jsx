@@ -20,13 +20,13 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-lg">OSOO</h3>
+                <h3 className="text-white font-semibold text-lg">OSO</h3>
                 <p className="text-xs text-slate-400">Est. 2008</p>
               </div>
             </div>
 
             <p className="mt-4 text-sm text-slate-400 leading-6">
-              Advancing surgical oncology excellence in Odisha through education, collaboration, and patient care.
+              Advancing oncology excellence in Odisha through education, collaboration, and patient care.
             </p>
 
             <div className="mt-6 flex space-x-3 mb-5">
@@ -62,7 +62,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/member/onboarding-member" className="hover:text-white transition block">
+                <Link to="/member/register" className="hover:text-white transition block">
                   Become a Member
                 </Link>
               </li>
@@ -77,7 +77,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/events?eventType=gallery" className="hover:text-white transition block">
+                <Link to="/events/gallery" className="hover:text-white transition block">
                   Gallery
                 </Link>
               </li>
@@ -89,7 +89,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Membership</h4>
             <ul className="space-y-3 text-slate-400 text-sm">
               <li>
-                <Link to="/member?section=life-members" className="hover:text-white transition block">
+                <Link to="/member/life-members" className="hover:text-white transition block">
                   Life Members
                 </Link>
               </li>
@@ -99,7 +99,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/member?section=benifits" className="hover:text-white transition block">
+                <Link to="/member/benifits" className="hover:text-white transition block">
                   Benefits
                 </Link>
               </li>
@@ -137,7 +137,7 @@ export default function Footer() {
                 <FiMail className="text-lg text-[#3aa2d6]" />
               </div>
               <div>
-                <p className="text-sm">info@osoo.org.in</p>
+                <p className="text-sm">info@oso.org.in</p>
               </div>
             </div>
           </div>
@@ -145,8 +145,13 @@ export default function Footer() {
 
         <hr className="my-8 border-slate-700" />
 
-        <div className="text-center text-slate-400 text-sm">
-          © 2025 ODISHA SOCIETY OF ONCOLOGY. All rights reserved.
+        <div className="flex items-center justify-between">
+          <div className="text-center text-slate-400 text-sm">
+            © 2025 ODISHA SOCIETY OF ONCOLOGY. All rights reserved.
+          </div>
+          <div className="text-center text-slate-400 text-sm">
+            Developed by <span className="text-lg font-bold hover:underline"><Link to="https://dayacs.com/" target="_blank">DCS</Link></span>
+          </div>
         </div>
       </div>
     </footer>

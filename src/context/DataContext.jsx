@@ -9,6 +9,7 @@ export const useData = () => useContext(DataContext);
 export const DataProvider = ({ children }) => {
   const [carousel, setCarousel] = useState([]);
   const [events, setEvents] = useState([]);
+  const [members, setMembers] = useState([]);
   const [councilmember, setCouncilmember] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,11 +25,13 @@ export const DataProvider = ({ children }) => {
       const [
         carouselRes,
         eventsRes,
+        memberRes,
         councilmemberRes,
         galleryRes
       ] = await Promise.all([
         axios.get(`${BASE_URL}/carousel`),
         axios.get(`${BASE_URL}/events`),
+        axios.get(`${BASE_URL}/member/allmember`),
         axios.get(`${BASE_URL}/councilmember`),
         axios.get(`${BASE_URL}/gallery`)
       ]);
@@ -39,6 +42,7 @@ export const DataProvider = ({ children }) => {
       );
 
       setEvents(eventsRes?.data?.data || []);
+      setMembers(memberRes?.data?.members || []);
       setCouncilmember(councilmemberRes?.data?.data || []);
       setGallery(galleryRes?.data?.data || []);
 
@@ -53,6 +57,7 @@ export const DataProvider = ({ children }) => {
   const value = {
     carousel,
     events,
+    members,
     councilmember,
     gallery,
     loading,

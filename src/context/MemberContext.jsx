@@ -208,31 +208,26 @@ export const MemberProvider = ({ children }) => {
   };
 
   // Update Member Profile
-  const updateProfile = async (uniqueId, updates) => {
-    setLoading(true);
+  const updateProfile = async (profileData) => {
     try {
-      const token = localStorage.getItem('memberToken');
-      const response = await axios.put(`${BASE_URL}/member/profile/${uniqueId}`, updates, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      const token = localStorage.getItem('memberToken'); // if using JWT
+      const response = await axios.put(
+        `${BASE_URL}/member/profile/${member.uniqueId}`,
+        profileData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         }
-      });
-
+      );
+      
       if (response.data.success) {
-        toast.success(response.data.message || 'Profile updated successfully!');
-        setMember(response.data.member);
-        localStorage.setItem('memberData', JSON.stringify(response.data.member));
-        return { success: true, member: response.data.member };
-      } else {
-        throw new Error(response.data.message || 'Profile update failed');
+        setMember(response.data.member); // Update context with new data
       }
+      return response.data;
     } catch (error) {
       console.error('Update profile error:', error);
-      toast.error(error.response?.data?.message || 'Profile update failed.');
-      return { success: false, message: error.response?.data?.message };
-    } finally {
-      setLoading(false);
+      return { success: false, message: error.response?.data?.message || 'Update failed' };
     }
   };
 

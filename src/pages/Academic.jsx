@@ -29,7 +29,7 @@ const academicPrograms = [
   {
     id: 1,
     title: "Fellowship Programs",
-    description: "Comprehensive fellowship programs in various surgical oncology subspecialties including breast, gastrointestinal, and head & neck oncology.",
+    description: "Comprehensive fellowship programs in various oncology subspecialties including breast, gastrointestinal, and head & neck oncology.",
     icon: <FaGraduationCap className="text-2xl" />,
     duration: "1-2 Years",
     level: "Advanced",
@@ -47,7 +47,7 @@ const academicPrograms = [
   {
     id: 3,
     title: "CME Workshops",
-    description: "Regular Continuing Medical Education workshops covering latest advancements in surgical oncology.",
+    description: "Regular Continuing Medical Education workshops covering latest advancements in oncology.",
     icon: <FaBook className="text-2xl" />,
     duration: "1-5 Days",
     level: "All Levels",
@@ -104,7 +104,7 @@ const researchAreas = [
 const academicResources = [
   {
     id: 1,
-    title: "OSOO Journal",
+    title: "OSO Journal",
     description: "Quarterly peer-reviewed journal publishing original research and review articles.",
     icon: <MdLibraryBooks />,
     link: "/academic/journal",
@@ -140,7 +140,7 @@ const academicResources = [
 const academicEvents = [
   {
     id: 1,
-    title: "Annual Surgical Oncology Conference",
+    title: "Annual Oncology Conference",
     date: "March 15-17, 2024",
     type: "Conference",
     location: "Bhubaneswar",
@@ -205,7 +205,7 @@ export default function Academic() {
                   Academic <span className="text-blue-200">Programs</span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-                  Advancing surgical oncology through education, research, and innovation
+                  Advancing oncology through education, research, and innovation
                 </p>
               </div>
               
@@ -234,10 +234,10 @@ export default function Academic() {
                 <div className="max-w-4xl mx-auto">
                   <div className="bg-linear-to-r from-blue-50 to-gray-50 p-8 rounded-2xl shadow-lg border border-blue-100">
                     <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-                      The <span className="font-bold text-[#326EAC]">Odisha Society Of Oncology (OSOO)</span> is committed to advancing surgical oncology through comprehensive academic programs, cutting-edge research, and continuous professional development. Our academic initiatives are designed to foster excellence in surgical oncology practice across Odisha.
+                      The <span className="font-bold text-[#326EAC]">Odisha Society Of Oncology (OSO)</span> is committed to advancing oncology through comprehensive academic programs, cutting-edge research, and continuous professional development. Our academic initiatives are designed to foster excellence in oncology practice across Odisha.
                     </p>
                     <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                      Through our educational programs, research opportunities, and collaborative networks, we empower surgical oncologists to deliver the highest standard of cancer care while pushing the boundaries of medical knowledge.
+                      Through our educational programs, research opportunities, and collaborative networks, we empower oncologists to deliver the highest standard of cancer care while pushing the boundaries of medical knowledge.
                     </p>
                   </div>
                 </div>
@@ -249,7 +249,7 @@ export default function Academic() {
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Academic Programs</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Structured educational programs designed for surgical oncology professionals at all career stages
+                  Structured educational programs designed for oncology professionals at all career stages
                 </p>
               </div>
 
@@ -506,10 +506,10 @@ export default function Academic() {
                 <div className="relative z-10">
                   <FaQuoteLeft className="text-4xl text-white/30 mb-6 mx-auto" />
                   <h3 className="text-3xl font-bold text-white mb-4">
-                    Advance Your Career in Surgical Oncology
+                    Advance Your Career in Oncology
                   </h3>
                   <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-                    Join our academic programs, participate in groundbreaking research, and collaborate with leading experts in surgical oncology.
+                    Join our academic programs, participate in groundbreaking research, and collaborate with leading experts in oncology.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link

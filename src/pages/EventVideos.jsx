@@ -136,7 +136,7 @@ export default function EventVideos() {
         setFilteredVideos(response.data.data);
       } catch (error) {
         console.error('Error fetching videos:', error);
-        toast.error('Failed to load videos');
+        toast.error('Failed to load videos, Please Logout and Login Again!');
         // Fallback to mock data
         setVideos(mockVideos);
         setFilteredVideos(mockVideos);
@@ -249,7 +249,7 @@ export default function EventVideos() {
                   Event <span className="text-blue-200">Videos</span>
                 </h1>
                 <p className="text-lg text-white/90 max-w-2xl mx-auto">
-                  Watch recordings of OSOO conferences, workshops, and seminars
+                  Watch recordings of OSO conferences, workshops, and seminars
                 </p>
               </div>
               
@@ -288,7 +288,7 @@ export default function EventVideos() {
                   <FaYoutube />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">OSOO Video Library</h2>
+                  <h2 className="text-xl font-bold text-gray-800">OSO Video Library</h2>
                   <p className="text-gray-600 text-sm">
                     Educational content from past events
                   </p>
@@ -474,7 +474,7 @@ export default function EventVideos() {
                 <div className="text-center md:text-left">
                   <div className="flex items-center gap-3 mb-3">
                     <FaYoutube className="text-3xl" />
-                    <h3 className="text-xl font-bold">Subscribe to OSOO YouTube Channel</h3>
+                    <h3 className="text-xl font-bold">Subscribe to OSO YouTube Channel</h3>
                   </div>
                   <p className="text-white/90">
                     Get notified when new event videos are uploaded. Watch live streams and access exclusive content.

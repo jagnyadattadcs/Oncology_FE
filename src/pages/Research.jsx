@@ -270,7 +270,7 @@ export default function Research() {
                   Research <span className="text-blue-200">Initiatives</span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-                  Advancing surgical oncology through evidence-based research and innovation
+                  Advancing oncology through evidence-based research and innovation
                 </p>
               </div>
               
@@ -299,10 +299,10 @@ export default function Research() {
                 <div className="max-w-4xl mx-auto">
                   <div className="bg-linear-to-r from-blue-50 to-gray-50 p-8 rounded-2xl shadow-lg border border-blue-100">
                     <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-                      The <span className="font-bold text-[#326EAC]">Odisha Society Of Oncology (OSOO)</span> is at the forefront of surgical oncology research in Eastern India. Our research initiatives aim to bridge the gap between clinical practice and scientific discovery, ultimately improving patient outcomes.
+                      The <span className="font-bold text-[#326EAC]">Odisha Society Of Oncology (OSO)</span> is at the forefront of oncology research in Eastern India. Our research initiatives aim to bridge the gap between clinical practice and scientific discovery, ultimately improving patient outcomes.
                     </p>
                     <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                      Through collaborative research projects, clinical trials, and translational studies, we contribute to the global knowledge base in surgical oncology while addressing region-specific cancer challenges.
+                      Through collaborative research projects, clinical trials, and translational studies, we contribute to the global knowledge base in oncology while addressing region-specific cancer challenges.
                     </p>
                   </div>
                 </div>
@@ -314,7 +314,7 @@ export default function Research() {
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Research Focus Areas</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Key research domains driving innovation in surgical oncology
+                  Key research domains driving innovation in oncology
                 </p>
               </div>
 
@@ -460,7 +460,7 @@ export default function Research() {
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
                   <div>
                     <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Recent Publications</h3>
-                    <p className="text-gray-600">Selected research publications by OSOO members</p>
+                    <p className="text-gray-600">Selected research publications by OSO members</p>
                   </div>
                   <Link 
                     to="/research/publications"
@@ -569,7 +569,7 @@ export default function Research() {
                 <div className="relative z-10">
                   <FaQuoteLeft className="text-4xl text-white/30 mb-6 mx-auto" />
                   <h3 className="text-3xl font-bold text-white mb-4">
-                    Contribute to Surgical Oncology Research
+                    Contribute to Oncology Research
                   </h3>
                   <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
                     Join our research initiatives, collaborate with experts, and help advance cancer care through evidence-based research.

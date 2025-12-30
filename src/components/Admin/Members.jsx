@@ -69,7 +69,7 @@ const Members = () => {
       }
     } catch (error) {
       console.error('Error fetching members:', error);
-      toast.error('Failed to load members');
+      toast.error('Failed to load members, Please Logout and Login Again!');
     } finally {
       setLoading(false);
     }
@@ -661,6 +661,11 @@ const Members = () => {
                         <label className="block text-sm font-medium text-gray-500 mb-1">Member ID</label>
                         <p className="text-gray-900 font-medium">{selectedMember.uniqueId || 'Not assigned yet'}</p>
                       </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">Designation</label>
+                        <p className="text-gray-900 font-medium">{selectedMember.designation || 'Not Updated yet'}</p>
+                      </div>
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-500 mb-1">Email</label>
@@ -670,6 +675,16 @@ const Members = () => {
                       <div>
                         <label className="block text-sm font-medium text-gray-500 mb-1">Phone</label>
                         <p className="text-gray-900">{selectedMember.phone}</p>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">Address</label>
+                        <p className="text-gray-900">{selectedMember.address || "Not Updated yet"}</p>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500 mb-1">Hospital</label>
+                        <p className="text-gray-900">{selectedMember.hospital || "Not Updated yet"}</p>
                       </div>
                       
                       <div>
@@ -700,7 +715,7 @@ const Members = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-500 mb-1">Speciality</label>
-                        <p className="text-gray-900 font-medium">{selectedMember?.speciality || "Others"}</p>
+                        <p className="text-gray-900 font-medium">{selectedMember?.speciality?.toUpperCase() || "Others"}</p>
                       </div>
                       
                       <div>
@@ -709,7 +724,7 @@ const Members = () => {
                           <>
                             {selectedMember.qualification?.map((q, index) => (
                               <span key={index} className="inline-block bg-gray-100 px-2 py-1 rounded text-sm mr-2 mb-1">
-                                {q}
+                                {q?.toUpperCase()}
                               </span>
                             ))}
                           </>
