@@ -75,9 +75,9 @@ const MemberSection = () => {
       }
     },
     {
-      year: "2020-2021",
+      year: "2018-2021",
       president: {
-        name: "Dr. Prafulla Ku. Das",
+        name: "Dr. Prafulla Kumar Das",
         role: "President",
         photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1766813786/Screenshot_2025-12-27_110607_qmibf1.png",
         department: "Odisha Society of Oncology",
@@ -92,7 +92,64 @@ const MemberSection = () => {
         institution: "Bhubaneswar",
         tenure: "Jan 2020 - Dec 2021"
       }
-    }
+    },
+    {
+      year: "2016-2018",
+      president: {
+        name: "Prof. Krushna Ballav Das",
+        role: "President",
+        photo: "https://img.freepik.com/premium-vector/person-icon_109161-4674.jpg?w=1060",
+        department: "Odisha Society of Oncology",
+        institution: "Bhubaneswar",
+        tenure: "Jan 2016 - Dec 2018"
+      },
+      secretary: {
+        name: "Dr. Dipti Rani Samanta",
+        role: "Secretary",
+        photo: "https://img.freepik.com/premium-vector/person-icon_109161-4674.jpg?w=1060",
+        department: "Odisha Society of Oncology",
+        institution: "Bhubaneswar",
+        tenure: "Jan 2016 - Dec 2018"
+      }
+    },
+    {
+      year: "2014-2016",
+      president: {
+        name: "Prof. Krupasindhu Panda",
+        role: "President",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767165387/Screenshot_2025-12-31_124618_evr9ux.png",
+        department: "Odisha Society of Oncology",
+        institution: "Bhubaneswar",
+        tenure: "Jan 2014 - Dec 2016"
+      },
+      secretary: {
+        name: "Dr. Prafulla Kumar Das",
+        role: "Secretary",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1766813786/Screenshot_2025-12-27_110607_qmibf1.png",
+        department: "Odisha Society of Oncology",
+        institution: "Bhubaneswar",
+        tenure: "Jan 2014 - Dec 2016"
+      }
+    },
+    {
+      year: "2009-2014",
+      president: {
+        name: "Prof. UN Panda",
+        role: "President",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767165274/Screenshot_2025-12-31_124422_qmmotj.png",
+        department: "Odisha Society of Oncology",
+        institution: "Bhubaneswar",
+        tenure: "Jan 2014 - Dec 2016"
+      },
+      secretary: {
+        name: "Dr. Sushil Kumar Giri",
+        role: "Secretary",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767094287/Screenshot_2025-12-30_170056_ktmduj.png",
+        department: "Odisha Society of Oncology",
+        institution: "Bhubaneswar",
+        tenure: "Jan 2014 - Dec 2016"
+      }
+    },
   ];
 
   const currentYearData = timelineData.find(item => item.year.startsWith(activeYear.toString()));

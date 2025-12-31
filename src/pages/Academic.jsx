@@ -117,94 +117,6 @@ const academicCouncilMembers = [
     specialization: "GI & HPB Oncology",
     institution: "Utkal Hospital",
     email: "das@oso.ac.in"
-  },
-  {
-    id: 9,
-    name: "Dr. Prasant Kumar",
-    designation: "Professor",
-    qualification: "MCh, PhD",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Thoracic Oncology",
-    institution: "SCB Medical College",
-    email: "kumar@oso.ac.in"
-  },
-  {
-    id: 10,
-    name: "Dr. Sujata Misra",
-    designation: "Senior Consultant",
-    qualification: "MCh, FNB",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Breast Oncology",
-    institution: "AHRCC",
-    email: "misra@oso.ac.in"
-  },
-  {
-    id: 11,
-    name: "Dr. Rajesh Pradhan",
-    designation: "Associate Professor",
-    qualification: "MCh, FUICC",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Sarcoma",
-    institution: "MKCG Medical College",
-    email: "pradhan@oso.ac.in"
-  },
-  {
-    id: 12,
-    name: "Dr. Smita Pattnaik",
-    designation: "Consultant",
-    qualification: "MCh, MRCS",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Neuro-Oncology",
-    institution: "AHRCC",
-    email: "pattnaik@oso.ac.in"
-  },
-  {
-    id: 13,
-    name: "Dr. Ramesh Chandra",
-    designation: "Professor",
-    qualification: "MCh, FICS",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Reconstructive Surgery",
-    institution: "VIMSAR",
-    email: "chandra@oso.ac.in"
-  },
-  {
-    id: 14,
-    name: "Dr. Priyanka Sharma",
-    designation: "Associate Consultant",
-    qualification: "MCh, DNB",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Surgical Oncology",
-    institution: "Capital Hospital",
-    email: "sharma@oso.ac.in"
-  },
-  {
-    id: 15,
-    name: "Dr. Anil Kumar",
-    designation: "Senior Professor",
-    qualification: "MCh, FRCS (Glasg)",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Hepatobiliary Surgery",
-    institution: "AIIMS Bhubaneswar",
-    email: "kumar.anil@oso.ac.in"
-  },
-  {
-    id: 16,
-    name: "Dr. Nalini Mohanty",
-    designation: "Director",
-    qualification: "MCh, FAMS",
-    role: "Advisor",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Oncopathology",
-    institution: "Regional Cancer Centre",
-    email: "mohanty@oso.ac.in"
   }
 ];
 
@@ -588,6 +500,182 @@ export default function Academic() {
               </div>
             </section>
 
+            {/* Academic Council Members */}
+            <section className="mb-16 md:mb-20">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Academic Council Members</h3>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Distinguished experts guiding our academic programs and research initiatives
+                </p>
+              </div>
+
+              {/* Search and Filter Controls */}
+              <div className="mb-8 bg-gray-50 rounded-2xl p-6">
+                <div className="flex flex-col md:flex-row gap-4">
+                  {/* Search Input */}
+                  <div className="flex-1 relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <FaSearch className="text-gray-400" />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Search members by name, specialization, or institution..."
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition"
+                      value={memberSearch}
+                      onChange={(e) => setMemberSearch(e.target.value)}
+                    />
+                  </div>
+                  
+                  {/* Role Filter */}
+                  <div className="w-full md:w-64">
+                    <select
+                      value={roleFilter}
+                      onChange={(e) => setRoleFilter(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition"
+                    >
+                      {uniqueRoles.map((role) => (
+                        <option key={role} value={role}>
+                          {role === 'all' ? 'All Roles' : role}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Stats */}
+                <div className="mt-4 flex flex-wrap items-center justify-between">
+                  <div className="text-sm text-gray-600">
+                    Showing {visibleMembers.length} of {filteredMembers.length} members
+                    {memberSearch && (
+                      <span className="ml-2">
+                        • Search: "<span className="font-medium">{memberSearch}</span>"
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm text-[#326EAC] font-medium">
+                    Total Members: {academicCouncilMembers.length}
+                  </div>
+                </div>
+              </div>
+
+              {/* Members Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                {visibleMembers.map((member) => (
+                  <div 
+                    key={member.id}
+                    onClick={() => handleMemberClick(member)}
+                    className="group cursor-pointer bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl hover:border-[#326EAC] transition-all duration-300 hover:-translate-y-1"
+                  >
+                    {/* Member Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      {/* Role Badge */}
+                      <div className="absolute top-4 right-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getRoleBadgeColor(member.role)}`}>
+                          {member.role}
+                        </span>
+                      </div>
+                      {/* Overlay Gradient */}
+                      <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    
+                    {/* Member Info */}
+                    <div className="p-6">
+                      <div className="mb-4">
+                        <h4 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h4>
+                        <p className="text-sm text-gray-600">{member.designation}</p>
+                        <p className="text-xs text-[#326EAC] font-medium mt-1">{member.qualification}</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div>
+                          <p className="text-xs text-gray-500 mb-1">Specialization</p>
+                          <p className="text-sm font-medium text-gray-700">{member.specialization}</p>
+                        </div>
+                        
+                        <div>
+                          <p className="text-xs text-gray-500 mb-1">Institution</p>
+                          <p className="text-sm font-medium text-gray-700 line-clamp-2">{member.institution}</p>
+                        </div>
+                        
+                        <div className="pt-3 border-t border-gray-100">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-gray-500">{member.email}</span>
+                            <button className="text-[#326EAC] hover:text-blue-700 transition-colors">
+                              <FaExternalLinkAlt className="text-sm" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Show More/Less Button */}
+              {filteredMembers.length > 8 && (
+                <div className="text-center">
+                  <button
+                    onClick={() => setShowAllMembers(!showAllMembers)}
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#326EAC] text-white font-semibold rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    {showAllMembers ? (
+                      <>
+                        <FaAngleDown className="text-lg" />
+                        Show Less
+                      </>
+                    ) : (
+                      <>
+                        Show More Members
+                        <FaAngleRight className="text-lg" />
+                      </>
+                    )}
+                  </button>
+                  <p className="text-sm text-gray-600 mt-4">
+                    {showAllMembers 
+                      ? `Showing all ${filteredMembers.length} members` 
+                      : `Showing 8 of ${filteredMembers.length} members. Click "Show More" to view all.`
+                    }
+                  </p>
+                </div>
+              )}
+
+              {/* Legend for Role Badges */}
+              <div className="mt-12 pt-8 border-t border-gray-200">
+                <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">Role Legend</h4>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <span className="text-sm text-gray-600">Chairman</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                    <span className="text-sm text-gray-600">Vice Chairman</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                    <span className="text-sm text-gray-600">Secretary</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span className="text-sm text-gray-600">Treasurer</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+                    <span className="text-sm text-gray-600">Advisor</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+                    <span className="text-sm text-gray-600">Member</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* Academic Programs Section */}
             <section className="mb-16 md:mb-20">
               <div className="text-center mb-12">
@@ -824,181 +912,6 @@ export default function Academic() {
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-gray-400"></div>
                   <span className="text-sm text-gray-600">Completed</span>
-                </div>
-              </div>
-            </section>
-
-            <section className="mb-16 md:mb-20">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold text-[#326EAC] mb-2">Academic Council Members</h3>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  Distinguished experts guiding our academic programs and research initiatives
-                </p>
-              </div>
-
-              {/* Search and Filter Controls */}
-              <div className="mb-8 bg-gray-50 rounded-2xl p-6">
-                <div className="flex flex-col md:flex-row gap-4">
-                  {/* Search Input */}
-                  <div className="flex-1 relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FaSearch className="text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Search members by name, specialization, or institution..."
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition"
-                      value={memberSearch}
-                      onChange={(e) => setMemberSearch(e.target.value)}
-                    />
-                  </div>
-                  
-                  {/* Role Filter */}
-                  <div className="w-full md:w-64">
-                    <select
-                      value={roleFilter}
-                      onChange={(e) => setRoleFilter(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#326EAC] focus:border-transparent outline-none transition"
-                    >
-                      {uniqueRoles.map((role) => (
-                        <option key={role} value={role}>
-                          {role === 'all' ? 'All Roles' : role}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                
-                {/* Stats */}
-                <div className="mt-4 flex flex-wrap items-center justify-between">
-                  <div className="text-sm text-gray-600">
-                    Showing {visibleMembers.length} of {filteredMembers.length} members
-                    {memberSearch && (
-                      <span className="ml-2">
-                        • Search: "<span className="font-medium">{memberSearch}</span>"
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-sm text-[#326EAC] font-medium">
-                    Total Members: {academicCouncilMembers.length}
-                  </div>
-                </div>
-              </div>
-
-              {/* Members Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-                {visibleMembers.map((member) => (
-                  <div 
-                    key={member.id}
-                    onClick={() => handleMemberClick(member)}
-                    className="group cursor-pointer bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl hover:border-[#326EAC] transition-all duration-300 hover:-translate-y-1"
-                  >
-                    {/* Member Image */}
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src={member.image} 
-                        alt={member.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {/* Role Badge */}
-                      <div className="absolute top-4 right-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getRoleBadgeColor(member.role)}`}>
-                          {member.role}
-                        </span>
-                      </div>
-                      {/* Overlay Gradient */}
-                      <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent"></div>
-                    </div>
-                    
-                    {/* Member Info */}
-                    <div className="p-6">
-                      <div className="mb-4">
-                        <h4 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h4>
-                        <p className="text-sm text-gray-600">{member.designation}</p>
-                        <p className="text-xs text-[#326EAC] font-medium mt-1">{member.qualification}</p>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div>
-                          <p className="text-xs text-gray-500 mb-1">Specialization</p>
-                          <p className="text-sm font-medium text-gray-700">{member.specialization}</p>
-                        </div>
-                        
-                        <div>
-                          <p className="text-xs text-gray-500 mb-1">Institution</p>
-                          <p className="text-sm font-medium text-gray-700 line-clamp-2">{member.institution}</p>
-                        </div>
-                        
-                        <div className="pt-3 border-t border-gray-100">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-500">{member.email}</span>
-                            <button className="text-[#326EAC] hover:text-blue-700 transition-colors">
-                              <FaExternalLinkAlt className="text-sm" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Show More/Less Button */}
-              {filteredMembers.length > 8 && (
-                <div className="text-center">
-                  <button
-                    onClick={() => setShowAllMembers(!showAllMembers)}
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#326EAC] text-white font-semibold rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    {showAllMembers ? (
-                      <>
-                        <FaAngleDown className="text-lg" />
-                        Show Less
-                      </>
-                    ) : (
-                      <>
-                        Show More Members
-                        <FaAngleRight className="text-lg" />
-                      </>
-                    )}
-                  </button>
-                  <p className="text-sm text-gray-600 mt-4">
-                    {showAllMembers 
-                      ? `Showing all ${filteredMembers.length} members` 
-                      : `Showing 8 of ${filteredMembers.length} members. Click "Show More" to view all.`
-                    }
-                  </p>
-                </div>
-              )}
-
-              {/* Legend for Role Badges */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">Role Legend</h4>
-                <div className="flex flex-wrap gap-3 justify-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <span className="text-sm text-gray-600">Chairman</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                    <span className="text-sm text-gray-600">Vice Chairman</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                    <span className="text-sm text-gray-600">Secretary</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-sm text-gray-600">Treasurer</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-                    <span className="text-sm text-gray-600">Advisor</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                    <span className="text-sm text-gray-600">Member</span>
-                  </div>
                 </div>
               </div>
             </section>

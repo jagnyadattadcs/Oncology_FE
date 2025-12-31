@@ -402,9 +402,13 @@ const CouncilMemberForm = ({ member, onClose, onSuccess }) => {
                   >
                     <option value="Executive-Member">Executive Member</option>
                     <option value="President">President</option>
+                    <option value="Past-President">Past President</option>
                     <option value="Vice-President">Vice President</option>
                     <option value="Secretary">Secretary</option>
+                    <option value="Joint-Secretary">Joint Secretary</option>
                     <option value="Treasurer">Treasurer</option>
+                    <option value="Editor">Editor</option>
+                    <option value="Advisory-Board-Member">Advisory Board Member</option>
                   </select>
                 </div>
               </div>

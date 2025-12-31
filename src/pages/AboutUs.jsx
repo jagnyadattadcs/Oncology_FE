@@ -233,10 +233,109 @@ const MemberDetailsDialog = ({ member, isOpen, onClose }) => {
   );
 };
 
+// Helper function to categorize members
+const categorizeMembers = (members) => {
+  const categories = {
+    president: [],
+    pastPresident: [],
+    vicePresident: [],
+    secretary: [],
+    treasurer: [],
+    editor: [],
+    jointSecretary: [],
+    executiveMember: [],
+    advisoryBoardMember: []
+  };
+
+  members.forEach(member => {
+    switch(member.role) {
+      case 'President':
+        categories.president.push(member);
+        break;
+      case 'Past-President':
+        categories.pastPresident.push(member);
+        break;
+      case 'Vice-President':
+        categories.vicePresident.push(member);
+        break;
+      case 'Secretary':
+        categories.secretary.push(member);
+        break;
+      case 'Treasurer':
+        categories.treasurer.push(member);
+        break;
+      case 'Editor':
+        categories.editor.push(member);
+        break;
+      case 'Joint-Secretary':
+        categories.jointSecretary.push(member);
+        break;
+      case 'Executive-Member':
+        categories.executiveMember.push(member);
+        break;
+      case 'Advisory-Board-Member':
+        categories.advisoryBoardMember.push(member);
+        break;
+      default:
+        categories.executiveMember.push(member);
+    }
+  });
+
+  return categories;
+};
+
+// Member Card Component
+const MemberCard = ({ member, onClick }) => (
+  <div 
+    key={member._id} 
+    className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl hover:border-[#326EAC]/30 transition-all duration-300 group"
+  >
+    {/* Image Container */}
+    <div className="h-64 overflow-hidden relative">
+      <img
+        src={member.imageUrl}
+        alt={member.name}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+      <div className="absolute top-4 right-4">
+        <MdVerified className="text-3xl text-[#326EAC] bg-white rounded-full p-1 shadow-lg" />
+      </div>
+    </div>
+
+    {/* Content */}
+    <div className="p-6">
+      <h4 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h4>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="px-3 py-1 bg-[#326EAC] text-white text-sm font-medium rounded-full">
+          {member.role}
+        </span>
+      </div>
+      
+      {/* <div className="pt-4 border-t border-gray-100">
+        <button 
+          onClick={() => onClick(member)}
+          className="flex items-center justify-center gap-2 w-full py-2 px-4 bg-gray-50 text-gray-700 rounded-lg hover:bg-[#326EAC] hover:text-white transition-all duration-300 group-hover:shadow-md"
+        >
+          View Profile
+          <FaChevronRight className="group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div> */}
+    </div>
+  </div>
+);
+
+// Section Title Component
+const SectionTitle = ({ title, subtitle }) => (
+  <div className="mb-8 text-center">
+    <h4 className="text-2xl font-bold text-[#326EAC] mb-2">{title}</h4>
+    {subtitle && <p className="text-gray-600">{subtitle}</p>}
+  </div>
+);
+
 export default function AboutUs() {
   const [selectedMember, setSelectedMember] = useState(null);
   const [showMemberDialog, setShowMemberDialog] = useState(false);
-  const {councilmember} = useData();
+  const { councilmember } = useData();
 
   const handleViewProfile = (member) => {
     setSelectedMember(member);
@@ -248,9 +347,12 @@ export default function AboutUs() {
     setTimeout(() => setSelectedMember(null), 300);
   };
 
-  useEffect(()=>{
-    window.scrollTo(0,0);
-  },[]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Categorize members
+  const categorizedMembers = categorizeMembers(councilmember);
 
   return (
     <div className="relative min-h-screen bg-gray-50">
@@ -505,47 +607,137 @@ and patient-centred cancer care is accessible to every individual in Odisha.
                 <p className="text-gray-600">Leadership guiding OSO towards excellence</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {councilmember.map((member) => (
-                  <div 
-                    key={member._id} 
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl hover:border-[#326EAC]/30 transition-all duration-300 group"
-                  >
-                    {/* Image Container */}
-                    <div className="h-64 overflow-hidden">
-                      <img
-                        src={member.imageUrl}
-                        alt={member.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 right-4">
-                        <MdVerified className="text-3xl text-[#326EAC] bg-white rounded-full p-1 shadow-lg" />
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6">
-                      <h4 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h4>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 bg-[#326EAC] text-white text-sm font-medium rounded-full">
-                          {member.role}
-                        </span>
-                      </div>
-                      {/* <p className="text-gray-600 text-sm mb-4">{member.qualification.join(",")}</p> */}
-                      
-                      {/* <div className="pt-4 border-t border-gray-100">
-                        <button 
-                          onClick={() => handleViewProfile(member)}
-                          className="flex items-center justify-center gap-2 w-full py-2 px-4 bg-gray-50 text-gray-700 rounded-lg hover:bg-[#326EAC] hover:text-white transition-all duration-300 group-hover:shadow-md"
-                        >
-                          View Profile
-                          <FaChevronRight className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                      </div> */}
-                    </div>
-                  </div>
-                ))}
+              {/* Row 1: President & Past President */}
+              <div className="mb-12">
+                <SectionTitle title="President & Past President" />
+                <div className="flex items-center justify-center w-full mx-auto gap-8">
+                  {/* President */}
+                  {categorizedMembers.president.map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                  
+                  {/* Past President */}
+                  {categorizedMembers.pastPresident.map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                </div>
               </div>
+
+              {/* Row 2: Vice President & Secretary */}
+              <div className="mb-12">
+                <SectionTitle title="Vice Presidents & Secretary" />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Vice Presidents */}
+                  {categorizedMembers.vicePresident.slice(0, 2).map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                  
+                  {/* Secretary */}
+                  {categorizedMembers.secretary.map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Row 3: Treasurer, Editor & Joint Secretary */}
+              <div className="mb-12">
+                <SectionTitle title="Treasurer, Editor & Joint Secretaries" />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {/* Treasurer */}
+                  {categorizedMembers.treasurer.map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                  
+                  {/* Editor */}
+                  {categorizedMembers.editor.map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                  
+                  {/* Joint Secretaries */}
+                  {categorizedMembers.jointSecretary.slice(0, 1).map(member => (
+                    <MemberCard 
+                      key={member._id} 
+                      member={member} 
+                      onClick={handleViewProfile}
+                    />
+                  ))}
+                </div>
+                
+                {/* Second Joint Secretary (if exists) */}
+                {categorizedMembers.jointSecretary.length > 1 && (
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {categorizedMembers.jointSecretary.slice(1).map(member => (
+                      <MemberCard 
+                        key={member._id} 
+                        member={member} 
+                        onClick={handleViewProfile}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Row 4: Executive Members */}
+              {categorizedMembers.executiveMember.length > 0 && (
+                <div className="mb-12">
+                  <SectionTitle 
+                    title="Executive Members" 
+                    subtitle="Dedicated professionals driving society initiatives"
+                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {categorizedMembers.executiveMember.map(member => (
+                      <MemberCard 
+                        key={member._id} 
+                        member={member} 
+                        onClick={handleViewProfile}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Row 5: Advisory Board Members */}
+              {categorizedMembers.advisoryBoardMember.length > 0 && (
+                <div>
+                  <SectionTitle 
+                    title="Advisory Board Members" 
+                    subtitle="Senior advisors providing strategic guidance"
+                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {categorizedMembers.advisoryBoardMember.map(member => (
+                      <MemberCard 
+                        key={member._id} 
+                        member={member} 
+                        onClick={handleViewProfile}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
 
             {/* History / Timeline Section */}
