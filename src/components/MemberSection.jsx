@@ -41,7 +41,7 @@ const MemberSection = () => {
       president: {
         name: "Prof. Sushil Kumar Giri",
         role: "President",
-        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767094287/Screenshot_2025-12-30_170056_ktmduj.png",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767593781/Screenshot_2026-01-05_114557_ohrdpb.png",
         department: "Odisha Society of Oncology",
         institution: "Bhubaneswar",
         tenure: "Jan 2024 - Dec 2025"
@@ -144,7 +144,7 @@ const MemberSection = () => {
       secretary: {
         name: "Dr. Sushil Kumar Giri",
         role: "Secretary",
-        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767094287/Screenshot_2025-12-30_170056_ktmduj.png",
+        photo: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767593781/Screenshot_2026-01-05_114557_ohrdpb.png",
         department: "Odisha Society of Oncology",
         institution: "Bhubaneswar",
         tenure: "Jan 2014 - Dec 2016"

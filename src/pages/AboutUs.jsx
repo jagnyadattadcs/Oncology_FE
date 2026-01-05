@@ -335,6 +335,8 @@ const SectionTitle = ({ title, subtitle }) => (
 export default function AboutUs() {
   const [selectedMember, setSelectedMember] = useState(null);
   const [showMemberDialog, setShowMemberDialog] = useState(false);
+  const [readMoreSecretary, setReadMoreSecretary] = useState(false);
+  const [readMorePresident, setReadMorePresident] = useState(false);
   const { councilmember } = useData();
 
   const handleViewProfile = (member) => {
@@ -484,17 +486,40 @@ to patients across the state.
                         />
                       </div>
                       <div>
-                        <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Mission by</h2>
+                        <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Mission</h2>
                         <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Surendra Nath Senapati</h2>
                         <h3 className="text-2xl font-bold text-[#326EAC] mt-2">President</h3>
                         <p className="font-semibold">2026 - 2027</p>
                       </div>
                     </div>
                     <div className="flex-1">
-                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-r-4 border-[#326EAC]">
+                      <div className={`${readMorePresident ? "h-auto" : "h-100"} overflow-hidden bg-white p-6 rounded-xl shadow-inner border-l-4 border-r-4 border-[#326EAC] transition-all duration-900`}>
                         <p className="text-gray-700 leading-relaxed text-justify">
-                          To promote excellence in the practice of surgical oncology through continuing medical education, research, and professional development. We strive to create a collaborative platform where surgical oncologists can share knowledge and ultimately improve patient care across Odisha.
+                          It is both an honour and a responsibility to serve as the President of the <span className="text-[#326EAC] font-semibold">Odisha Society of Oncology (OSO)</span>—the largest oncology professional body of the state, representing over 220 dedicated oncologists and oncology professionals across multiple disciplines.
+Cancer care is undergoing a rapid transformation, driven by advances in technology, precision medicine, and multidisciplinary teamwork. OSO has consistently remained at the forefront of this evolution by promoting academic excellence, continuous professional development, and ethical clinical practice. Our society has established a strong tradition of regular academic programs that foster learning, collaboration, and innovation.
+However, significant challenges persist. Disparities in cancer care delivery—particularly between urban and rural regions—continue to limit equitable access to timely diagnosis and advanced treatment. Addressing these gaps remains a core priority of OSO.
+Our Vision for OSO <br />
+The Odisha Society of Oncology is committed to strengthening cancer care in the state through the following key initiatives: <br />
+•	Development of a dynamic and interactive OSO website as a central platform for academics, communication, and professional collaboration <br />
+•	Expansion of monthly OSO webinars, in addition to regular academic activities, to ensure inclusive and accessible learning <br />
+•	Institution of Lifetime Achievement Awards to honour outstanding contributions to oncology <br />
+•	Exploring the feasibility of an OSO journal to promote regional research, innovation, and academic scholarship <br />
+•	Advocacy with government and policymakers for the establishment of Departments of Radiation Oncology and Palliative care in all medical colleges <br />
+•	Integration of Oncology into the MBBS curriculum, fostering early exposure and strengthening cancer awareness <br />
+•	Strengthening and supporting population-based and hospital-based cancer registries to generate reliable data for evidence-based planning, research, and policy formulation
+With the global cancer burden expected to rise substantially in the coming decades, robust cancer registries will play a pivotal role in understanding disease patterns, guiding resource allocation, evaluating outcomes, and shaping effective cancer control strategies.
+<br />OSO aspires to act as a catalyst by integrating education, research, cancer registry data, and policy advocacy to improve cancer prevention, early detection, treatment, and survivorship care across Odisha.
+<br />I firmly believe that through collective effort, shared vision, and sustained commitment, the Odisha Society of Oncology will continue to grow as a strong academic and professional force—contributing meaningfully to cancer control at both state and national levels.
+<br />I invite all members to actively participate in OSO initiatives, contribute data, ideas, and expertise, and work together toward our common goal—equitable, evidence-based, and patient-centred cancer care for all.
                         </p>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <span 
+                          onClick={()=> setReadMorePresident((prev)=>!prev)}
+                          className="inline-block cursor-pointer items-center gap-2 text-sm sm:text-base font-semibold py-2 px-8 rounded-xl bg-linear-to-r from-white to-blue-50 border-2 border-blue-300 text-[#326EAC] hover:text-white hover:border-[#326EAC] hover:from-[#326EAC] hover:to-[#255280] transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                          {readMorePresident ? "Show Less" : "Show More"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -512,17 +537,16 @@ to patients across the state.
                         />
                       </div>
                       <div>
-                        <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Vision by</h2>
+                        <h2 className="font-bold inline-block p-1 px-2 rounded-full text-[#326EAC] text-xl mb-1 border border-blue-500 bg-blue-100">Our Vision</h2>
                         <h2 className="font-bold text-[#326EAC] text-2xl mb-2">Prof. Sunil Agrawala</h2>
                         <h3 className="text-2xl font-bold text-[#326EAC] mt-2">Secretary</h3>
                         <p className="font-semibold">2026 - 2027</p>
                       </div>
                     </div>
                     <div className="flex-1">
-                      <div className="bg-white p-6 rounded-xl shadow-inner border-l-4 border-r-4 border-[#326EAC]">
+                      <div className={`${readMoreSecretary ? "h-auto" : "h-100"} overflow-hidden bg-white p-6 rounded-xl shadow-inner border-l-4 border-r-4 border-[#326EAC] transition-all duration-900`}>
                         <p className="text-gray-700 leading-relaxed text-justify">
-                          It is both an honour and a responsibility to serve as the Secretary of the Odisha Society of Oncology
-(OSO), a premier and inclusive professional body representing oncologists from surgical, medical,
+                          It is both an honour and a responsibility to serve as the Secretary of the <span className="text-[#326EAC] font-semibold">Odisha Society of Oncology (OSO)</span>, a premier and inclusive professional body representing oncologists from surgical, medical,
 radiation, palliative care, nuclear medicine, and allied specialties across the state of Odisha. <br />
 
 OSO stands at an important juncture in its journey. With more than 250 dedicated members working
@@ -547,6 +571,14 @@ I invite every OSO member to actively contribute ideas, participate in programs,
 in strengthening our society. Together, let us shape a future where high-quality, evidence-based,
 and patient-centred cancer care is accessible to every individual in Odisha.
                         </p>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <span 
+                          onClick={()=> setReadMoreSecretary((prev)=>!prev)}
+                          className="inline-block cursor-pointer items-center gap-2 text-sm sm:text-base font-semibold py-2 px-8 rounded-xl bg-linear-to-r from-white to-blue-50 border-2 border-blue-300 text-[#326EAC] hover:text-white hover:border-[#326EAC] hover:from-[#326EAC] hover:to-[#255280] transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                          {readMoreSecretary ? "Show Less" : "Show More"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -658,7 +690,7 @@ and patient-centred cancer care is accessible to every individual in Odisha.
               {/* Row 3: Treasurer, Editor & Joint Secretary */}
               <div className="mb-12">
                 <SectionTitle title="Treasurer, Editor & Joint Secretaries" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {/* Treasurer */}
                   {categorizedMembers.treasurer.map(member => (
                     <MemberCard 
@@ -685,20 +717,20 @@ and patient-centred cancer care is accessible to every individual in Odisha.
                       onClick={handleViewProfile}
                     />
                   ))}
+                  {/* Second Joint Secretary (if exists) */}
+                  {categorizedMembers.jointSecretary.length > 1 && (
+                    <>
+                      {categorizedMembers.jointSecretary.slice(1).map(member => (
+                        <MemberCard 
+                          key={member._id} 
+                          member={member} 
+                          onClick={handleViewProfile}
+                        />
+                      ))}
+                    </>
+                  )}
                 </div>
                 
-                {/* Second Joint Secretary (if exists) */}
-                {categorizedMembers.jointSecretary.length > 1 && (
-                  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {categorizedMembers.jointSecretary.slice(1).map(member => (
-                      <MemberCard 
-                        key={member._id} 
-                        member={member} 
-                        onClick={handleViewProfile}
-                      />
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* Row 4: Executive Members */}

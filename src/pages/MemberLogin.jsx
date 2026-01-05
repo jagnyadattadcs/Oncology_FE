@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaArrowRight, FaUserPlus, FaHospitalSymbol } from 'react-icons/fa';
 import { useMember } from '../context/MemberContext';
@@ -52,6 +52,10 @@ const MemberLogin = () => {
       }
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div 

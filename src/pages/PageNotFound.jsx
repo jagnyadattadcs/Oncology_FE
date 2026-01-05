@@ -54,12 +54,12 @@ const PageNotFound = () => {
                   <FaExclamationTriangle />
                   <span className="font-medium">Page Not Found</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                {/* <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                   Oops! Lost in{' '}
                   <span className="bg-linear-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
                     Medical Space
                   </span>
-                </h1>
+                </h1> */}
                 <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                   The page you're looking for seems to have wandered off. Don't worry - even the best surgeons sometimes misplace things!
                 </p>

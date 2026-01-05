@@ -129,7 +129,7 @@ const GallerySection = () => {
           transition={{ duration: 0.6 }}
           className="flex justify-center"
         >
-          <Link to="/gallery">
+          <Link to="/events/gallery">
             <motion.button
               className="text-lg flex group items-center justify-center font-semibold p-2 sm:p-3 px-8 border rounded-lg shadow-md shadow-[#326EAC] text-[#326EAC] hover:bg-[#326EAC] hover:text-white transition-all duration-300 cursor-pointer"
             >

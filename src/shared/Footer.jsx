@@ -137,7 +137,7 @@ export default function Footer() {
                 <FiMail className="text-lg text-[#3aa2d6]" />
               </div>
               <div>
-                <p className="text-sm">info@oso.org.in</p>
+                <p className="text-sm">odishasocietyofoncology@gmail.com</p>
               </div>
             </div>
           </div>

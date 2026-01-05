@@ -213,6 +213,10 @@ export default function ImageGallery() {
     toast.info("Image download feature will be available soon!");
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-gray-50">
       {/* Background Pattern */}

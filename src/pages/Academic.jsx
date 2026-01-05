@@ -32,91 +32,45 @@ import { toast } from "react-toastify";
 const academicCouncilMembers = [
   {
     id: 1,
-    name: "Dr. S. N. Senapati",
-    designation: "Director, AHRCC",
-    qualification: "MCh, FRCS",
+    name: "Dr. Ghanashyam Biswas",
     role: "Chairman",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Surgical Oncology",
-    institution: "Acharya Harihar Regional Cancer Centre",
-    email: "senapati@oso.ac.in"
+    image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1766811270/Screenshot_2025-12-27_102406_kfn675.png",
+    institution: "Odisha Society of Oncology",
   },
   {
     id: 2,
-    name: "Dr. Sunil Agarwala",
-    designation: "Professor & Head",
-    qualification: "MS, MCh",
-    role: "Vice Chairman",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Uro-Oncology",
-    institution: "SUM Hospital",
-    email: "agarwala@oso.ac.in"
+    name: "Dr. Ranajit Kar",
+    role: "Academic Member",
+    image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767599049/WhatsApp_Image_2026-01-05_at_1.09.05_PM_adpzpr.jpg",
+    institution: "Odisha Society of Oncology",
   },
   {
     id: 3,
-    name: "Dr. Sandip Barik",
-    designation: "Associate Professor",
-    qualification: "MCh, DNB",
-    role: "Secretary",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Pediatric Oncology",
-    institution: "AIIMS Bhubaneswar",
-    email: "barik@oso.ac.in"
+    name: "Dr. Bharat Bhusan Satpathy",
+    role: "Academic Member",
+    image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767599143/Screenshot_2026-01-05_121217_kwbsr0.jpg",
+    institution: "Odisha Society of Oncology",
   },
   {
     id: 4,
-    name: "Dr. Khitish Mishra",
-    designation: "Senior Consultant",
-    qualification: "MCh, FIAGES",
-    role: "Treasurer",
+    name: "Dr. Sangram Keshari Panda",
+    role: "Academic Member",
     image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "GI Oncology",
-    institution: "Carcinova Cancer Centre",
-    email: "mishra@oso.ac.in"
+    institution: "Odisha Society of Oncology",
   },
   {
     id: 5,
-    name: "Dr. Asit Mohapatra",
-    designation: "Professor",
-    qualification: "MS, MCh",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Head & Neck Oncology",
-    institution: "KIMS Hospital",
-    email: "mohapatra@oso.ac.in"
+    name: "Dr. Saroj Panda",
+    role: "Academic Member",
+    image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767595564/Screenshot_2026-01-05_121534_pepi5x.png",
+    institution: "Odisha Society of Oncology",
   },
   {
     id: 6,
-    name: "Dr. Ghanshyam Biswas",
-    designation: "Director",
-    qualification: "MCh, FACS",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Gynecologic Oncology",
-    institution: "Sparsh Hospital",
-    email: "biswas@oso.ac.in"
-  },
-  {
-    id: 7,
-    name: "Dr. Garima Sarawgi",
-    designation: "Associate Director",
-    qualification: "MCh, MRCS",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "Endocrine Surgery",
-    institution: "SUM Hospital II",
-    email: "sarawgi@oso.ac.in"
-  },
-  {
-    id: 8,
-    name: "Dr. Satyabrata Das",
-    designation: "Chief Consultant",
-    qualification: "MCh, FRCS",
-    role: "Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
-    specialization: "GI & HPB Oncology",
-    institution: "Utkal Hospital",
-    email: "das@oso.ac.in"
+    name: "Dr. Krushna Chandra Pani",
+    role: "Academic Member",
+    image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767595729/Screenshot_2026-01-05_121836_mbnv14.png",
+    institution: "Odisha Society of Oncology",
   }
 ];
 
@@ -323,13 +277,13 @@ export default function Academic() {
     switch (role.toLowerCase()) {
       case 'chairman':
         return 'bg-red-100 text-red-800 border-red-200';
-      case 'vice chairman':
+      case 'Academic Member':
         return 'bg-orange-100 text-orange-800 border-orange-200';
       case 'secretary':
         return 'bg-blue-100 text-blue-800 border-blue-200';
       case 'treasurer':
         return 'bg-green-100 text-green-800 border-green-200';
-      case 'advisor':
+      case 'academic member':
         return 'bg-purple-100 text-purple-800 border-purple-200';
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200';
@@ -510,9 +464,8 @@ export default function Academic() {
               </div>
 
               {/* Search and Filter Controls */}
-              <div className="mb-8 bg-gray-50 rounded-2xl p-6">
+              {/* <div className="mb-8 bg-gray-50 rounded-2xl p-6">
                 <div className="flex flex-col md:flex-row gap-4">
-                  {/* Search Input */}
                   <div className="flex-1 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <FaSearch className="text-gray-400" />
@@ -525,8 +478,6 @@ export default function Academic() {
                       onChange={(e) => setMemberSearch(e.target.value)}
                     />
                   </div>
-                  
-                  {/* Role Filter */}
                   <div className="w-full md:w-64">
                     <select
                       value={roleFilter}
@@ -541,8 +492,7 @@ export default function Academic() {
                     </select>
                   </div>
                 </div>
-                
-                {/* Stats */}
+
                 <div className="mt-4 flex flex-wrap items-center justify-between">
                   <div className="text-sm text-gray-600">
                     Showing {visibleMembers.length} of {filteredMembers.length} members
@@ -556,10 +506,10 @@ export default function Academic() {
                     Total Members: {academicCouncilMembers.length}
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Members Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {visibleMembers.map((member) => (
                   <div 
                     key={member.id}
@@ -567,11 +517,11 @@ export default function Academic() {
                     className="group cursor-pointer bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl hover:border-[#326EAC] transition-all duration-300 hover:-translate-y-1"
                   >
                     {/* Member Image */}
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-65 overflow-hidden">
                       <img 
                         src={member.image} 
                         alt={member.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-101 transition-transform duration-300"
                       />
                       {/* Role Badge */}
                       <div className="absolute top-4 right-4">
@@ -587,29 +537,28 @@ export default function Academic() {
                     <div className="p-6">
                       <div className="mb-4">
                         <h4 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h4>
-                        <p className="text-sm text-gray-600">{member.designation}</p>
-                        <p className="text-xs text-[#326EAC] font-medium mt-1">{member.qualification}</p>
+                        {/* <p className="text-sm text-gray-600">{member.designation}</p> */}
+                        {/* <p className="text-xs text-[#326EAC] font-medium mt-1">{member.qualification}</p> */}
                       </div>
                       
                       <div className="space-y-3">
-                        <div>
+                        {/* <div>
                           <p className="text-xs text-gray-500 mb-1">Specialization</p>
                           <p className="text-sm font-medium text-gray-700">{member.specialization}</p>
-                        </div>
+                        </div> */}
                         
                         <div>
-                          <p className="text-xs text-gray-500 mb-1">Institution</p>
                           <p className="text-sm font-medium text-gray-700 line-clamp-2">{member.institution}</p>
                         </div>
                         
-                        <div className="pt-3 border-t border-gray-100">
+                        {/* <div className="pt-3 border-t border-gray-100">
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-gray-500">{member.email}</span>
                             <button className="text-[#326EAC] hover:text-blue-700 transition-colors">
                               <FaExternalLinkAlt className="text-sm" />
                             </button>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -645,7 +594,7 @@ export default function Academic() {
               )}
 
               {/* Legend for Role Badges */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
+              {/* <div className="mt-12 pt-8 border-t border-gray-200">
                 <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">Role Legend</h4>
                 <div className="flex flex-wrap gap-3 justify-center">
                   <div className="flex items-center gap-2">
@@ -673,7 +622,7 @@ export default function Academic() {
                     <span className="text-sm text-gray-600">Member</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </section>
 
             {/* Academic Programs Section */}

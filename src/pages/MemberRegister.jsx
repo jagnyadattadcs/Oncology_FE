@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaPhone, FaIdCard, FaUpload, FaArrowRight, FaHospitalSymbol } from 'react-icons/fa';
 import { useMember } from '../context/MemberContext';
@@ -176,6 +176,10 @@ const MemberRegister = () => {
   const handleOtpResend = async (email) => {
     await resendOtp(email);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div 

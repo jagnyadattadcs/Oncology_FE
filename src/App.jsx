@@ -20,24 +20,31 @@ import EventVideos from "./pages/EventVideos";
 import ImageGallery from "./pages/ImageGallery";
 import Academic from "./pages/Academic";
 import PageNotFound from "./pages/PageNotFound";
-import { DataProvider } from "./context/DataContext";
+import { DataProvider, useData } from "./context/DataContext";
 import Research from "./pages/Research";
 import LifeMembers from "./pages/LifeMembers";
+import Loader from "./pages/Loader";
 
 function App() {
   const location = useLocation();
+  const [loading, setLoading] = useState(true);
 
   // Check if current path is an admin path
   const isAdminPath = location.pathname.startsWith("/admin");
 
+  useEffect(()=>{
+    const timer = setTimeout(()=>{
+      setLoading(false);
+    },3000);
+    return () => clearTimeout(timer);
+  },[]);
+
   // Show loading spinner while checking auth state
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0b61a8]"></div>
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <Loader/>
+    );
+  }
 
   return (
     <>
