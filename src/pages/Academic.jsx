@@ -55,7 +55,7 @@ const academicCouncilMembers = [
     id: 4,
     name: "Dr. Sangram Keshari Panda",
     role: "Academic Member",
-    image: "https://static.vecteezy.com/system/resources/previews/026/375/249/non_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg",
+    image: "https://res.cloudinary.com/dxvovx7s2/image/upload/v1767677384/Screenshot_2026-01-06_105857_lmhow3.png",
     institution: "Odisha Society of Oncology",
   },
   {
